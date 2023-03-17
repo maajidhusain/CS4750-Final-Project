@@ -1,6 +1,36 @@
 
 -- Retrieve the daily workout, extra workouts, lineups, and user information
+
+-- Retrieve today's daily workout
+SELECT description 
+FROM DailyWorkout NATURAL JOIN Practices 
+WHERE date IN (CURDATE());
+
+-- Retrieve tomorrow's daily workout
+SELECT description 
+FROM DailyWorkout NATURAL JOIN Practices 
+WHERE date IN (CURDATE() + INTERVAL 1 DAY);
+
+-- Retrieve a daily workout from any date
+SELECT description 
+FROM DailyWorkout NATURAL JOIN Practices 
+WHERE DAY(date) = $num AND MONTH(date) = 
+4month AND YEAR(date) = $year;
+
 -- Retrieve how many practices an athlete missed
+
+-- retrieve the athletes attending tomorrow's practice
+
+-- retrieve an athletes extra workouts (all of them)
+
+-- retrieve some athlete user information
+
+-- retrieve all of the lineups
+
+-- retieve a given user's lineups (use "Rows in")
+
+
+
 
 
 -- Add new user to database

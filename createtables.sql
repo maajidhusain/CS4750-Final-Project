@@ -50,7 +50,7 @@ CREATE TABLE Single(
 
 CREATE TABLE TwoMan(
     name VARCHAR(50) NOT NULL,
-    oars VARCHAR(50) NOT NULL,
+    oars VARCHAR(50),
     rigging VARCHAR(50) NOT NULL,
     one_seat INT(50),
     two_seat INT(50),
@@ -62,13 +62,13 @@ CREATE TABLE TwoMan(
 
 CREATE TABLE FourMan(
     name VARCHAR(50) NOT NULL,
-    oars VARCHAR(50) NOT NULL,
+    oars VARCHAR(50),
     rigging VARCHAR(50) NOT NULL,
-    coxswain INT(50) NOT NULL,
-    one_seat INT(50) NOT NULL,
-    two_seat INT(50) NOT NULL,
-    three_seat INT(50) NOT NULL,
-    four_seat INT(50) NOT NULL,
+    coxswain INT(50),
+    one_seat INT(50),
+    two_seat INT(50),
+    three_seat INT(50),
+    four_seat INT(50),
     PRIMARY KEY (name),
     FOREIGN KEY (name) REFERENCES Boats(name),
     FOREIGN KEY (coxswain) REFERENCES Athlete(user_id),
@@ -79,18 +79,18 @@ CREATE TABLE FourMan(
 );
 
 CREATE TABLE EightMan(
-    name = VARCHAR(50) PRIMARY KEY,
-    oars = VARCHAR(50) NOT NULL,
-    rigging = VARCHAR(50) NOT NULL,
-    coxswain INT(50) NOT NULL,
-    one_seat INT(50) NOT NULL,
-    two_seat INT(50) NOT NULL,
-    three_seat INT(50) NOT NULL,
-    four_seat INT(50) NOT NULL,
-    five_seat INT(50) NOT NULL,
-    six_seat INT(50) NOT NULL,
-    seven_seat INT(50) NOT NULL,
-    eight_seat INT(50) NOT NULL,
+    name VARCHAR(50),
+    oars VARCHAR(50),
+    rigging VARCHAR(50) NOT NULL,
+    coxswain INT(50),
+    one_seat INT(50),
+    two_seat INT(50),
+    three_seat INT(50),
+    four_seat INT(50),
+    five_seat INT(50),
+    six_seat INT(50),
+    seven_seat INT(50),
+    eight_seat INT(50),
     PRIMARY KEY (name),
     FOREIGN KEY (name) REFERENCES Boats(name),
     FOREIGN KEY (coxswain) REFERENCES Athlete(user_id),
@@ -112,7 +112,7 @@ CREATE TABLE DailyWorkout(
 
 CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
-    boat_name VARCHAR(50) NOT NULL,
+    boat_name VARCHAR(50),
     PRIMARY KEY (athlete_id),
     FOREIGN KEY (boat_name) REFERENCES Boats(name),
 );
@@ -121,7 +121,7 @@ CREATE TABLE Practices(
     athlete_id INT(50) NOT NULL,
     workout_id INT(50) NOT NULL,
     attended VARCHAR(1) DEFAULT 'Y',
-    date = DATE NOT NULL,
+    date DATE NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(user_id),
     PRIMARY KEY (athlete_id, workout_id)
 );
