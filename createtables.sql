@@ -1,5 +1,5 @@
 CREATE TABLE Athlete(
-    user_id = INT PRIMARY KEY AUTOINCREMENT,
+    user_id INT PRIMARY KEY AUTOINCREMENT,
     first_name = VARCHAR(50) NOT NULL,
     last_name = VARCHAR(50) NOT NULL,
     email = VARCHAR(50) NOT NULL,
@@ -12,7 +12,8 @@ CREATE TABLE Athlete(
     boat_side = VARCHAR(50) NOT NULL,
     twoKPR = INTEGER(100) NOT NULL,
     g8 = INTEGER(100) NOT NULL,
-    age = INT(2) NOT NULL
+    age AS DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y') 
+ + 0 NOT NULL
 );
 
 CREATE TABLE Coach(
