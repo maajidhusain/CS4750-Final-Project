@@ -1,5 +1,5 @@
 CREATE TABLE Athlete(
-    user_id INT(50) NOT NULL,
+    athlete_id INT(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -14,28 +14,28 @@ CREATE TABLE Athlete(
     g8 INTEGER(100) NOT NULL,
     age AS DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y') 
  + 0 NOT NULL,
-    PRIMARY KEY (user_id) AUTO_INCREMENT
+    PRIMARY KEY (athlete_id) AUTO_INCREMENT
 );
 
 CREATE TABLE Coach(
-    user_id INT(50) NOT NULL,
+    coach_id INT(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     phone_number INT(10) NOT NULL,
     position VARCHAR(50) NOT NULL,
-    PRIMARY KEY (user_id) AUTO_INCREMENT
+    PRIMARY KEY (coach_id) AUTO_INCREMENT
 );
 
 CREATE TABLE ExtraWork(
-    user_id INT(50) NOT NULL,
+    athlete_id INT(50) NOT NULL,
     workout_id INT(50),
-    minutes INT(3) NOT NULL,
-    date DATE NOT NULL,
+    mins INT(3) NOT NULL,
+    dte DATE NOT NULL,
     workout_type VARCHAR(50) NOT NULL,
-    description VARCHAR(500) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Athlete(user_id),
-    PRIMARY KEY (user_id, workout_id)
+    descr VARCHAR(500) NOT NULL,
+    FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
+    PRIMARY KEY (athlete_id, workout_id)
 );
 
 CREATE TABLE Single(
@@ -44,7 +44,7 @@ CREATE TABLE Single(
     rigging VARCHAR(50) NOT NULL,
     one_seat INT(50),
     FOREIGN KEY (name) REFERENCES Boats(name),
-    FOREIGN KEY (one_seat) REFERENCES Athlete(user_id),
+    FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
     PRIMARY KEY (name)
 );
 
@@ -56,8 +56,8 @@ CREATE TABLE TwoMan(
     two_seat INT(50),
     PRIMARY KEY (name),
     FOREIGN KEY (name) REFERENCES Boats(name),
-    FOREIGN KEY (one_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (two_seat) REFERENCES Athlete(user_id)
+    FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (two_seat) REFERENCES Athlete(athlete_id)
 );
 
 CREATE TABLE FourMan(
@@ -71,15 +71,15 @@ CREATE TABLE FourMan(
     four_seat INT(50),
     PRIMARY KEY (name),
     FOREIGN KEY (name) REFERENCES Boats(name),
-    FOREIGN KEY (coxswain) REFERENCES Athlete(user_id),
-    FOREIGN KEY (one_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (two_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (three_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (four_seat) REFERENCES Athlete(user_id)
+    FOREIGN KEY (coxswain) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (two_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (three_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (four_seat) REFERENCES Athlete(athlete_id)
 );
 
 CREATE TABLE EightMan(
-    name VARCHAR(50),
+    boat_name VARCHAR(50),
     oars VARCHAR(50),
     rigging VARCHAR(50) NOT NULL,
     coxswain INT(50),
@@ -93,15 +93,15 @@ CREATE TABLE EightMan(
     eight_seat INT(50),
     PRIMARY KEY (name),
     FOREIGN KEY (name) REFERENCES Boats(name),
-    FOREIGN KEY (coxswain) REFERENCES Athlete(user_id),
-    FOREIGN KEY (one_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (two_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (three_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (four_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (five_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (six_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (seven_seat) REFERENCES Athlete(user_id),
-    FOREIGN KEY (eight_seat) REFERENCES Athlete(user_id)
+    FOREIGN KEY (coxswain) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (two_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (three_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (four_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (five_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (six_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (seven_seat) REFERENCES Athlete(athlete_id),
+    FOREIGN KEY (eight_seat) REFERENCES Athlete(athlete_id)
 );
 
 CREATE TABLE DailyWorkout(
@@ -114,15 +114,15 @@ CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
     boat_name VARCHAR(50),
     PRIMARY KEY (athlete_id),
-    FOREIGN KEY (boat_name) REFERENCES Boats(name),
+    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
 );
 
 CREATE TABLE Practices(
     athlete_id INT(50) NOT NULL,
     workout_id INT(50) NOT NULL,
     attended VARCHAR(1) DEFAULT 'Y',
-    date DATE NOT NULL,
-    FOREIGN KEY (athlete_id) REFERENCES Athlete(user_id),
+    dte DATE NOT NULL,
+    FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
     PRIMARY KEY (athlete_id, workout_id)
 );
 
