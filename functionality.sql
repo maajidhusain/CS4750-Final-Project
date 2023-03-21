@@ -75,7 +75,16 @@ VALUES
 ($first_name, $last_name, $email, $phone_number, $date_of_birth, $year, $height, $weight, $class, $boat_side, $twoKPR);
 
 -- Add Coach
+INSERT INTO Coach 
+(first_name, last_name, email, phone_number, position)
+VALUES 
+($first_name, $last_name, $email, $phone_number, $position);
+
 -- Add extra work
+INSERT INTO ExtraWork
+(athlete_id, workout_id, mins, dte, workout_type, descr)
+VALUES
+($athlete_id, $workout_id, $mins, $dte, $workout_type, $descr);
 -- Add Single
 -- Add two man
 -- Add FourMan
