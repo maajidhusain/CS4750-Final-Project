@@ -63,13 +63,55 @@ SELECT boat_name
 FROM RowsIn
 WHERE athlete_id = $athlete_id;
 
+-- retrieve the name of an eights lineup coxswain
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.coxswain = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
 -- retrieve the name of an eights lineup 1 seat
 SELECT first_name + ' ' + last_name AS Name
 FROM Athlete JOIN EightMan ON EightMan.one_seat = Athlete.athlete_id
 WHERE first_name_name <> NULL AND last_name <> NULL;
 
+-- retrieve the name of an eights lineup 2 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.two_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
 
+-- retrieve the name of an eights lineup 3 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.three_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
 
+-- retrieve the name of an eights lineup 4 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.four_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
+-- retrieve the name of an eights lineup 5 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.five_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
+-- retrieve the name of an eights lineup 6 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.six_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
+-- retrieve the name of an eights lineup 7 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.seven_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
+-- retrieve the name of an eights lineup 8 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.eight_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
+-- retrieve the name of an four lineup coxswain seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON FourMan.one_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
 
 
 
