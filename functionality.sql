@@ -63,6 +63,11 @@ SELECT boat_name
 FROM RowsIn
 WHERE athlete_id = $athlete_id;
 
+-- retrieve the name of an eights lineup 1 seat
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete JOIN EightMan ON EightMan.one_seat = Athlete.athlete_id
+WHERE first_name_name <> NULL AND last_name <> NULL;
+
 
 
 
