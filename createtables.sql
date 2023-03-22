@@ -1,5 +1,5 @@
 CREATE TABLE Athlete(
-    athlete_id INT(50) NOT NULL,
+    athlete_id INT(50)  NOT NULL  AUTO_INCREMENT,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -7,14 +7,13 @@ CREATE TABLE Athlete(
     date_of_birth DATE NOT NULL,
     grad_year INT(4) NOT NULL,
     height INT(3) NOT NULL,
-    weight INT(3) NOT NULL,
+    ath_weight INT(3) NOT NULL,
     class VARCHAR(50) NOT NULL,
-    boat_side VARCHAR(50) NOT NULL,
-    twoKPR INTEGER(100) NOT NULL,
-    g8 INTEGER(100) NOT NULL,
-    age AS DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y') 
- + 0 NOT NULL,
-    PRIMARY KEY (athlete_id) AUTO_INCREMENT
+    boat_side VARCHAR(1) CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p") NOT NULL,
+    twoKPR INT(100) CHECK (twoKPR > 300),
+    g8 AS (twoKPR / ath_weight),
+    age AS DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y') + 0,
+    PRIMARY KEY (athlete_id)
 );
 
 CREATE TABLE Coach(
@@ -39,29 +38,29 @@ CREATE TABLE ExtraWork(
 );
 
 CREATE TABLE Single(
-    name VARCHAR(50),
+    boat_name VARCHAR(50),
     oars VARCHAR(50),
     rigging VARCHAR(50) NOT NULL,
     one_seat INT(50),
-    FOREIGN KEY (name) REFERENCES Boats(name),
+    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
     FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
-    PRIMARY KEY (name)
+    PRIMARY KEY (boat_name)
 );
 
 CREATE TABLE TwoMan(
-    name VARCHAR(50) NOT NULL,
+    boat_name VARCHAR(50) NOT NULL,
     oars VARCHAR(50),
     rigging VARCHAR(50) NOT NULL,
     one_seat INT(50),
     two_seat INT(50),
-    PRIMARY KEY (name),
-    FOREIGN KEY (name) REFERENCES Boats(name),
+    PRIMARY KEY (boat_name),
+    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
     FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
     FOREIGN KEY (two_seat) REFERENCES Athlete(athlete_id)
 );
 
 CREATE TABLE FourMan(
-    name VARCHAR(50) NOT NULL,
+    boat_name VARCHAR(50) NOT NULL,
     oars VARCHAR(50),
     rigging VARCHAR(50) NOT NULL,
     coxswain INT(50),
@@ -69,8 +68,8 @@ CREATE TABLE FourMan(
     two_seat INT(50),
     three_seat INT(50),
     four_seat INT(50),
-    PRIMARY KEY (name),
-    FOREIGN KEY (name) REFERENCES Boats(name),
+    PRIMARY KEY (boat_name),
+    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
     FOREIGN KEY (coxswain) REFERENCES Athlete(athlete_id),
     FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
     FOREIGN KEY (two_seat) REFERENCES Athlete(athlete_id),
@@ -91,8 +90,8 @@ CREATE TABLE EightMan(
     six_seat INT(50),
     seven_seat INT(50),
     eight_seat INT(50),
-    PRIMARY KEY (name),
-    FOREIGN KEY (name) REFERENCES Boats(name),
+    PRIMARY KEY (boat_name),
+    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
     FOREIGN KEY (coxswain) REFERENCES Athlete(athlete_id),
     FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
     FOREIGN KEY (two_seat) REFERENCES Athlete(athlete_id),
@@ -106,7 +105,7 @@ CREATE TABLE EightMan(
 
 CREATE TABLE DailyWorkout(
     workout_id INT(50) NOT NULL,
-    description VARCHAR(500) NOT NULL
+    descr VARCHAR(500) NOT NULL
     PRIMARY KEY (workout_id) AUTO_INCREMENT
 );
 
@@ -117,80 +116,134 @@ CREATE TABLE RowsIn(
     FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
 );
 
+-- created new table for practices
 CREATE TABLE Practices(
-    athlete_id INT(50) NOT NULL,
+    practice_id INT(50) NOT NULL,
     workout_id INT(50) NOT NULL,
-    attended VARCHAR(1) DEFAULT 'Y',
     dte DATE NOT NULL,
+    FOREIGN KEY (workout_id) REFERENCES DailyWorkout(workout_id),
+    PRIMARY KEY (practice_id) AUTO_INCREMENT
+);
+
+-- renamed "practices" to this, changed workout_id to practice_id and delted date, also added "attended"
+CREATE TABLE Attendance(
+    athlete_id INT(50) NOT NULL,
+    practice_id INT(50) NOT NULL,
+    attended VARCHAR(1) DEFAULT 'Y' NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
-    PRIMARY KEY (athlete_id, workout_id)
+    PRIMARY KEY (athlete_id, practice_id)
 );
 
 CREATE TABLE Boats(
-    name VARCHAR(50) NOT NULL,
+    boat_name VARCHAR(50) NOT NULL,
     num_seats INT(1) NOT NULL,
-    PRIMARY KEY (name)
+    PRIMARY KEY (boat_name)
 )
 
 
-INSERT INTO Athlete 
+INSERT INTO Athlete
+(athlete_id, first_name, last_name, email, phone_number, date_of_birth, grad_year, height, ath_weight, class, boat_side, twoKPR)
 VALUES 
-    ('John', 'Smith', 'johnsmith@gmail.com', 1234567890, '1999-01-01', 2023, 70, 180, 'Freshman', 'Port', '07:00', '06:00'),
-    ('Jane', 'Doe', 'janedoe@gmail.com', 0987654321, '2000-05-15', 2022, 65, 170, 'Sophomore', 'Starboard', '06:30', '05:45'),
-    ('Michael', 'Jordan', 'mj23@gmail.com', 5551234567, '1984-02-17', 2024, 80, 200, 'Senior', 'Coxswain', '06:15', '05:30'),
-    ('Serena', 'Williams', 'serenawilliams@gmail.com', 8885551234, '1981-09-26', 2023, 72, 155, 'Junior', 'Starboard', '06:45', '06:15'),
-    ('Tom', 'Brady', 'tombrady@gmail.com', 3335551234, '1977-08-03', 2025, 75, 225, 'Senior', 'Port', '06:00', '05:15'),
-    ('LeBron', 'James', 'lebronjames@gmail.com', 6664441234, '1984-12-30', 2022, 82, 250, 'Junior', 'Coxswain', '06:30', '05:45'),
-    ('Lionel', 'Messi', 'lionelmessi@gmail.com', 7771111234, '1987-06-24', 2024, 68, 160, 'Sophomore', 'Starboard', '06:15', '05:30'),
-    ('Simone', 'Biles', 'simonebiles@gmail.com', 5557771234, '1997-03-14', 2023, 58, 120, 'Freshman', 'Port', '07:00', '06:00'),
-    ('Katie', 'Ledecky', 'katieledecky@gmail.com', 4442221234, '1997-03-17', 2025, 70, 150, 'Senior', 'Starboard', '06:45', '06:15'),
-    ('Usain', 'Bolt', 'usainbolt@gmail.com', 9991111234, '1986-08-21', 2023, 80, 200, 'Junior', 'Port', '06:30', '05:45'),
-    ('Michael', 'Phelps', 'michaelphelps@gmail.com', 7778881234, '1985-06-30', 2022, 80, 185, 'Sophomore', 'Coxswain', '06:15', '05:30'),
-    ('Serena', 'Guthrie', 'serenaguthrie@gmail.com', 3336661234, '1993-05-19', 2024, 67, 145, 'Freshman', 'Starboard', '07:00', '06:00'),
-    ('Megan', 'Rapinoe', 'meganrapinoe@gmail.com', 1117771234, '1985-07-05', 2023, 65, 135, 'Junior', 'Port', '06:45', '06:15')
+(1, 'Grace', 'Nguyen', 'gracenguyen@yahoo.com', 2345678901, '2002-06-25', 2023, 67, 155, 'Sophomore', 'S', '320'),
+(2, 'Ryan', 'Miller', 'ryanmiller@gmail.com', 3456789012, '2001-09-18', 2023, 73, 195, 'Junior', 'P', '420'),
+(3, 'Lila', 'Patel', 'lilapatel@hotmail.com', 7890123456, '1999-02-14', 2023, 64, 165, 'Senior', 'S', '360'),
+(4, 'Tyler', 'Jones', 'tylerjones@gmail.com', 5678901234, '2000-11-01', 2023, 70, 180, 'Freshman', 'P', '330'),
+(5, 'Sophie', 'Kim', 'sophiekim@yahoo.com', 4567890123, '2003-04-08', 2023, 66, 170, 'Sophomore', 'S', '340'),
+(6, 'Andrew', 'Martinez', 'andrewmartinez@hotmail.com', 9012345678, '1998-07-09', 2023, 74, 200, 'Junior', 'P', '350'),
+(7, 'Isabella', 'Garcia', 'isabellagarcia@gmail.com', 3456789012, '2002-01-01', 2023, 68, 175, 'Freshman', 'S', '310'),
+(8, 'Jacob', 'Wilson', 'jacobwilson@yahoo.com', 7890123456, '2001-05-25', 2023, 71, 185, 'Senior', 'P', '460'),
+(9, 'Avery', 'Brown', 'averybrown@gmail.com', 5678901234, '2000-08-12', 2023, 65, 170, 'Sophomore', 'S', '450'),
+(10,'Ethan', 'Lee', 'ethanlee@hotmail.com', 9012345678, '1999-11-05', 2023, 69, 180, 'Junior', 'P', '330'),
+(11, 'Olivia', 'Johnson', 'oliviajohnson@gmail.com', 2345678901, '2002-03-03', 2023, 72, 190, 'Freshman', 'S', '320'),
+(12, 'Mason', 'Garcia', 'masongarcia@hotmail.com', 7890123456, '2001-07-22', 2023, 68, 175, 'Senior', 'P', '430'),
+(13, 'Sophia', 'Kim', 'sophiakim@yahoo.com', 5678901234, '2003-02-14', 2023, 67, 165, 'Sophomore', 'S', '330'),
+(14, 'William', 'Nguyen', 'williamnguyen@gmail.com', 9012345678, '2000-06-07', 2023, 73, 195, 'Junior', 'P', '420'),
+(15, 'Katie', 'Smith', 'katie_smith@yahoo.com', 2345678901, '2002-05-11', 2023, 65, 150, 'Sophomore', 'S', '330'),
+(16, 'Matthew', 'Garcia', 'matthewgarcia@gmail.com', 3456789012, '2001-08-14', 2023, 72, 190, 'Junior', 'P', '450'),
+(17, 'Lauren', 'Nguyen', 'lauren.nguyen@hotmail.com', 7890123456, '1999-03-21', 2023, 67, 165, 'Senior', 'S', '370'),
+(18, 'David', 'Kim', 'davidkim@gmail.com', 5678901234, '2000-10-17', 2023, 69, 180, 'Freshman', 'P', '320'),
+(19, 'Emily', 'Martinez', 'emilymartinez@yahoo.com', 4567890123, '2003-05-23', 2023, 66, 170, 'Sophomore', 'S', '340'),
+(20, 'Daniel', 'Brown', 'daniel_brown@hotmail.com', 9012345678, '1998-08-12', 2023, 73, 195, 'Junior', 'P', '460'),
+(21, 'Chloe', 'Wilson', 'chloewilson@gmail.com', 3456789012, '2002-01-01', 2023, 68, 175, 'Freshman', 'S', '310'),
+(22, 'Ryan', 'Lee', 'ryanlee@hotmail.com', 7890123456, '2001-04-14', 2023, 71, 185, 'Senior', 'P', '440'),
+(23, 'Samantha', 'Johnson', 'samanthajohnson@gmail.com', 5678901234, '2000-09-23', 2023, 65, 170, 'Sophomore', 'S', '420'),
+(24, 'Joseph', 'Miller', 'josephmiller@hotmail.com', 9012345678, '1999-12-17', 2023, 69, 180, 'Junior', 'P', '310'),
+(25, 'Natalie', 'Garcia', 'nataliegarcia@yahoo.com', 2345678901, '2002-02-08', 2023, 72, 190, 'Freshman', 'S', '350'),
+(26, 'Nicholas', 'Nguyen', 'nicholas_nguyen@gmail.com', 7890123456, '2001-06-15', 2023, 68, 175, 'Senior', 'P', '420'),
+(27 'Ava', 'Kim', 'ava_kim@yahoo.com', 5678901234, '2003-01-10', 2023, 67, 165, 'Sophomore', 'S', '340'),
+(28, 'Benjamin', 'Smith', 'benjam_smith@gmail.com', 9012345678, '2000-05-07', 2023, 73, 195, 'Junior', 'P', '430')
     ;
 
 INSERT INTO Boats
 VALUES
-    ('Eight', 8),
-    ('Four', 4),
-    ('Pair', 2),
-    ('Single', 1)
-    ;
+    ('Peoples Eight', 8),
+    ('White Rocket II', 8),
+    ('Jefferson', 8),
+    ('Panda', 4),
+    ('Myers', 4),
+    ('Kadravits', 4),
+    ('Orange Swift', 1),
+    ('Blue Swift', 1),
+    ('Green Swift', 1),
+    ('Orange Swift D', 2),
+    ('Blue Swift D', 2),
+    ('Green Swift D', 2),
+;
 
 INSERT INTO EightMan
 VALUES
-    ('JohnnyIve', 'red', 'starboard', 1, 2, 3, 4, 5, 6, 7, 8, 9),
-    ('Apple', 'blue', 'port', 10, 11, 12, 13, 14, 15, 16, 17, 18),
-    ('Google', 'green', 'starboard', 19, 20, 21, 22, 23, 24, 25, 26, 27),
-    ('Microsoft', 'yellow', 'port', 28, 29, 30, 31, 32, 33, 34, 35, 36),
-    ('Amazon', 'orange', 'starboard', 37, 38, 39, 40, 41, 42, 43, 44, 45),
-    ('Facebook', 'purple', 'port', 46, 47, 48, 49, 50, 51, 52, 53, 54),
-    ('Twitter', 'black', 'starboard', 55, 56, 57, 58, 59, 60, 61, 62, 63),
-    ('Instagram', 'white', 'port', 64, 65, 66, 67, 68, 69, 70, 71, 72),
-    ('Snapchat', 'pink', 'starboard', 73, 74, 75, 76, 77, 78, 79, 80, 81),
-    ('TikTok', 'grey', 'port', 82, 83, 84, 85, 86, 87, 88, 89, 90),
-    ('Twitch', 'brown', 'starboard', 91, 92, 93, 94, 95, 96, 97, 98, 99),
-    ('Discord', 'silver', 'port', 100, 101, 102, 103, 104, 105, 106, 107, 108),
-    ('Spotify', 'gold', 'starboard', 109, 110, 111, 112, 113, 114, 115, 116, 117)
+    ('Peoples Eight', 'red', 'P', 1, 2, 3, 4, 5, 6, 7, 8, 9),
+    ('White Rocket II', 'blue', 'p', 6, 7, 8, 9, 10, 11, 12, 13, 14),
+    ('Jefferson', NULL, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
     ;
 
 INSERT INTO FourMan
 VALUES
-    ('JohnnyIve', 'red', 'starboard', 1, 2, 3, 4, 5),
-    ('Apple', 'blue', 'port', 10, 11, 12, 13, 14),
-    ('Google', 'green', 'starboard', 19, 20, 21, 22, 23),
-    ('Microsoft', 'yellow', 'port', 28, 29, 30, 31, 32),
-    ('Amazon', 'orange', 'starboard', 37, 38, 39, 40, 41),
-    ('Facebook', 'purple', 'port', 46, 47, 48, 49, 50),
-    ('Twitter', 'black', 'starboard', 55, 56, 57, 58, 59),
-    ('Instagram', 'white', 'port', 64, 65, 66, 67, 68),
-    ('Snapchat', 'pink', 'starboard', 73, 74, 75, 76, 77),
-    ('TikTok', 'grey', 'port', 82, 83, 84, 85, 86),
-    ('Twitch', 'brown', 'starboard', 91, 92, 93, 94, 95),
-    ('Discord', 'silver', 'port', 100, 101, 102, 103, 104),
-    ('Spotify', 'gold', 'starboard', 109, 110, 111, 112, 113)
+    ('Panda', 'orange', 'S', 15, 16, 17, 18, 19),
+    ('Myers', 'orange', 'p', 10, 11, 12, 13, 14),
+    ('Kadravits', 'gray', 'S', 19, 20, 21, 22, 23),
+;
 
-INSERT INTO Pair
+INSERT INTO TwoMan
 VALUES
-    
+    ('Orange Swift D', 'skinnys', 'S', 24, 25),
+    ('Blue Swift D', NULL, 'S', NULL, NULL),
+    ('Green Swift D', NULL, 'S', NULL, NULL),
+;
+
+INSERT INTO Single
+VALUES
+    ('Orange Swift', 'skinnys', 'S', 26),
+    ('Blue Swift', NULL, 'S', NULL),
+    ('Green Swift', NULL, 'S', NULL),
+;
+
+INSERT INTO DailyWorkout
+VALUES
+(1, "4x20' Z2L with 4' rest"),
+(1, "2x30' Z1L with 5' rest")
+(2, "5x10' Z4L with 2' rest")
+(3, "3x15' Z3L with 3' rest")
+(4, "6x5' Z5L with 1' rest")
+(5, "4x25' Z2L with 4' rest")
+(6, "2x40' Z1L with 6' rest")
+(7, "8x3' Z6L with 1' rest")
+(8, "5x20' Z3L with 3' rest")
+(9, "6x10' Z4L with 2' rest")
+(10, "3x30' Z2L with 5' rest")
+;
+
+INSERT INTO Practices
+VALUES
+(1, 1, '2022-03-15'),
+(1, 2, '2022-03-16')
+(2, 3, '2022-03-17')
+(3, 4, '2022-03-18')
+(4, 5, '2022-03-19')
+(5, 6, '2022-03-20')
+(6, 7, '2022-03-21')
+(7, 8, '2022-03-22')
+(8, 9, '2022-03-23')
+(9, 10, '2022-03-24')
+(10, 1, '2022-03-25')
+;
