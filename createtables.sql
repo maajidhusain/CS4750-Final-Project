@@ -270,9 +270,19 @@ AFTER UPDATE ON RowsIn
 FOR EACH ROW
 BEGIN
 
-IF (OLD.boat_name <> NEW.boat_name) OR (OLD.seat <> NEW.seat) THEN
+IF (OLD.boat_name <> NEW.boat_name) THEN
+    IF ((SELECT num_seats FROM Boats WHERE boat_name=NEW.boat_name) = 8) THEN
+        IF (NEW.seat = '1') THEN
+            UPDATE EightMan SET one_seat = OLD.athlete_id;
+        ELSEIF (NEW.seat = '2') THEN
+
+        ENDIF;
+    ELSEIF ((SELECT num_seats FROM Boats WHERE boat_name=NEW.boat_name) = 4) THEN
 
 
+ELSEIF (OLD.seat <> NEW.seat) THEN
+
+ENDIF;
 
 END
 $$
