@@ -207,7 +207,7 @@ VALUES
 INSERT INTO EightMan
 VALUES
     ('Peoples Eight', 'red', 'P', 1, 2, 3, 4, 5, 6, 7, 8, 9),
-    ('White Rocket II', 'blue', 'p', 6, 7, 8, 9, 10, 11, 12, 13, 14),
+    ('White Rocket II', 'blue', 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
     ('Jefferson', NULL, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
     ;
 
@@ -307,8 +307,36 @@ VALUES
     (13, 6, 25, '2023-04-01', 'water', '4x10 pushups 4x10 Z2l')
     ;
 
-
-
+INSERT INTO RowsIn
+VALUES
+    (26, 'Blue Swift', 1),
+    (25, 'Orange Swift D', 1),
+    (25, 'Orange Swift D', 1),
+    (19, 'Kadravits', 0),
+    (20, 'Kadravits', 1),
+    (21, 'Kadravits', 2),
+    (22, 'Kadravits', 3),
+    (23, 'Kadravits', 4),
+    (10, 'Myers', 0),
+    (11, 'Myers', 1),
+    (12, 'Myers', 2),
+    (13, 'Myers', 3),
+    (14, 'Myers', 4),
+    (15, 'Panda', 0),
+    (16, 'Panda' 1)
+    (17, 'Panda', 2),
+    (18, 'Panda', 3),
+    (19, 'Panda', 4),
+    (1, "Peoples Eight", 0),
+    (2, "People Eight", 1),
+    (3, "People Eight", 2),
+    (4, "People Eight", 3),
+    (5, "People Eight", 4),
+    (6, "People Eight", 5),
+    (7, "People Eight", 6),
+    (8, "People Eight", 7),
+    (9, "People Eight", 8)
+    ;
 -- automatically delete a user from one lineup if they are put into another and update rows in
 DELIMITER $$
 CREATE TRIGGER lineupTrigger
