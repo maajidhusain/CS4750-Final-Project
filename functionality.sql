@@ -233,10 +233,14 @@ WHERE athlete_id=$athlete_id AND practice_id=$practice_id;
 
 
 -- The ‘Superuser’ will be able to delete, or remove inactive or archived athletes
+DELETE FROM Athlete
+WHERE athlete_id=$athlete_id;
 -- Coach will be able to delete invalid extra workouts
-
+DELETE FROM ExtraWork
+WHERE workout_id=$workout_id;
 -- Search/Filter Data
 -- search by 2kscore
+
 -- search by name
 -- search by boat side
 -- search by class
