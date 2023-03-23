@@ -118,7 +118,7 @@ CREATE TABLE DailyWorkout(
 CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
     boat_name VARCHAR(50),
-    seat VARCHAR(50),   
+    seat INT(1),   
     PRIMARY KEY (athlete_id),
     FOREIGN KEY (boat_name) REFERENCES Boats(boat_name)
 );
