@@ -270,19 +270,35 @@ AFTER UPDATE ON RowsIn
 FOR EACH ROW
 BEGIN
 
-IF (OLD.boat_name <> NEW.boat_name) THEN
-    IF ((SELECT num_seats FROM Boats WHERE boat_name=NEW.boat_name) = 8) THEN
-        IF (NEW.seat = '1') THEN
-            UPDATE EightMan SET one_seat = OLD.athlete_id;
-        ELSEIF (NEW.seat = '2') THEN
-
-        ENDIF;
-    ELSEIF ((SELECT num_seats FROM Boats WHERE boat_name=NEW.boat_name) = 4) THEN
-
-
-ELSEIF (OLD.seat <> NEW.seat) THEN
-
-ENDIF;
+    DECLARE number_seats INT;
+    
+    IF (OLD.boat_name <> NEW.boat_name) THEN
+        
+        SELECT num_seats INTO number_seats FROM Boats WHERE boat_name = NEW.boat_name;
+        
+        IF (number_seats = 8) THEN
+            
+            IF (NEW.seat = '1') THEN
+                UPDATE EightMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '2') THEN
+                UPDATE EightMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '3') THEN
+                UPDATE EightMan SET three_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '4') THEN
+                UPDATE EightMan SET four_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '5') THEN
+                UPDATE EightMan SET five_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '6') THEN
+                UPDATE EightMan SET six_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '7') THEN
+                UPDATE EightMan SET seven_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '8') THEN
+                UPDATE EightMan SET eight_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+            
+        END IF;
+        
+    END IF;
 
 END
 $$
