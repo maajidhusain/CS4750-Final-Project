@@ -3,27 +3,27 @@ CREATE TABLE Athlete(
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    phone_number INT(10) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
     date_of_birth DATE NOT NULL,
     grad_year INT(4) NOT NULL,
     height INT(3) NOT NULL,
     ath_weight INT(3) NOT NULL,
     class VARCHAR(50) NOT NULL,
-    boat_side VARCHAR(1) CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p") NOT NULL,
+    boat_side VARCHAR(1) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p"),
     twoKPR INT(100) CHECK (twoKPR > 300),
-    g8 AS (twoKPR / ath_weight),
-    age AS DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y') + 0,
+    g8 INT(50) AS (twoKPR / ath_weight),
+    age INT(50) AS (DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y')+0),
     PRIMARY KEY (athlete_id)
 );
 
 CREATE TABLE Coach(
-    coach_id INT(50) NOT NULL,
+    coach_id INT(50) NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    phone_number INT(10) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL,
     position VARCHAR(50) NOT NULL,
-    PRIMARY KEY (coach_id) AUTO_INCREMENT
+    PRIMARY KEY (coach_id) 
 );
 
 CREATE TABLE ExtraWork(
@@ -35,6 +35,12 @@ CREATE TABLE ExtraWork(
     descr VARCHAR(500) NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
     PRIMARY KEY (athlete_id, workout_id)
+);
+
+CREATE TABLE Boats(
+    boat_name VARCHAR(50) NOT NULL,
+    num_seats INT(1) NOT NULL,
+    PRIMARY KEY (boat_name)
 );
 
 CREATE TABLE Single(
@@ -104,25 +110,25 @@ CREATE TABLE EightMan(
 );
 
 CREATE TABLE DailyWorkout(
-    workout_id INT(50) NOT NULL,
-    descr VARCHAR(500) NOT NULL
-    PRIMARY KEY (workout_id) AUTO_INCREMENT
+    workout_id INT(50) NOT NULL AUTO_INCREMENT,
+    descr VARCHAR(500) NOT NULL,
+    PRIMARY KEY (workout_id) 
 );
 
 CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
     boat_name VARCHAR(50),
     PRIMARY KEY (athlete_id),
-    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
+    FOREIGN KEY (boat_name) REFERENCES Boats(boat_name)
 );
 
 -- created new table for practices
 CREATE TABLE Practices(
-    practice_id INT(50) NOT NULL,
+    practice_id INT(50) NOT NULL AUTO_INCREMENT,
     workout_id INT(50) NOT NULL,
     dte DATE NOT NULL,
     FOREIGN KEY (workout_id) REFERENCES DailyWorkout(workout_id),
-    PRIMARY KEY (practice_id) AUTO_INCREMENT
+    PRIMARY KEY (practice_id) 
 );
 
 -- renamed "practices" to this, changed workout_id to practice_id and delted date, also added "attended"
@@ -134,11 +140,7 @@ CREATE TABLE Attendance(
     PRIMARY KEY (athlete_id, practice_id)
 );
 
-CREATE TABLE Boats(
-    boat_name VARCHAR(50) NOT NULL,
-    num_seats INT(1) NOT NULL,
-    PRIMARY KEY (boat_name)
-)
+
 
 
 INSERT INTO Athlete
@@ -170,7 +172,7 @@ VALUES
 (24, 'Joseph', 'Miller', 'josephmiller@hotmail.com', 9012345678, '1999-12-17', 2023, 69, 180, 'Junior', 'P', '310'),
 (25, 'Natalie', 'Garcia', 'nataliegarcia@yahoo.com', 2345678901, '2002-02-08', 2023, 72, 190, 'Freshman', 'S', '350'),
 (26, 'Nicholas', 'Nguyen', 'nicholas_nguyen@gmail.com', 7890123456, '2001-06-15', 2023, 68, 175, 'Senior', 'P', '420'),
-(27 'Ava', 'Kim', 'ava_kim@yahoo.com', 5678901234, '2003-01-10', 2023, 67, 165, 'Sophomore', 'S', '340'),
+(27, 'Ava', 'Kim', 'ava_kim@yahoo.com', 5678901234, '2003-01-10', 2023, 67, 165, 'Sophomore', 'S', '340'),
 (28, 'Benjamin', 'Smith', 'benjam_smith@gmail.com', 9012345678, '2000-05-07', 2023, 73, 195, 'Junior', 'P', '430')
     ;
 
