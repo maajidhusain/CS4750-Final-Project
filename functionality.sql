@@ -239,11 +239,22 @@ WHERE athlete_id=$athlete_id;
 DELETE FROM ExtraWork
 WHERE workout_id=$workout_id;
 -- Search/Filter Data
--- search by 2kscore
-
+-- search by 2kscore 
+SELECT first_name + ' ' + last_name AS Name, twoKPR
+FROM Athlete
+WHERE twoKPR >= $twoKPR;
 -- search by name
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete
+WHERE first_name_name <> NULL AND last_name <> NULL;
 -- search by boat side
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete
+WHERE boat_side = $boat_side;
 -- search by class
+SELECT first_name + ' ' + last_name AS Name
+FROM Athlete
+WHERE class = $class;
 
 -- Each user will be allowed to filter through the athlete directory to see the different attributes assigned to the results from the search
 
