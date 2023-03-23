@@ -261,3 +261,19 @@ VALUES
 (10, 10, '2022-03-24'),
 (11, 1, '2022-03-25')
 ;
+
+
+-- automatically delete a user from one lineup if they are put into another and update rows in
+DELIMITER $$
+CREATE TRIGGER lineupTrigger
+AFTER UPDATE ON RowsIn
+FOR EACH ROW
+BEGIN
+
+IF (OLD.boat_name <> NEW.boat_name) OR (OLD.seat <> NEW.seat) THEN
+
+
+
+END
+$$
+DELIMITER ;

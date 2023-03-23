@@ -273,19 +273,7 @@ WHERE class = $class;
 -- $$
 -- DELIMITER ;
 
--- -- automatically delete a user from one lineup if they are put into another and update rows in
--- DELIMITER $$
--- CREATE TRIGGER lineupTrigger
--- AFTER UPDATE ON RowsIn
--- FOR EACH ROW
--- BEGIN
--- INSERT INTO Attendance
--- (athlete_id, practice_id)
--- VALUES
--- (Athlete.athlete_id, Practices.practice_id)
--- END
--- $$
--- DELIMITER ;
+
 
 
 -- look for what changed in rows in and update the approprotaite boat accrodingly
