@@ -176,6 +176,12 @@ VALUES
 (28, 'Benjamin', 'Smith', 'benjam_smith@gmail.com', 9012345678, '2000-05-07', 2023, 73, 195, 'Junior', 'P', '430')
     ;
 
+INSERT INTO Coach
+(coach_id, first_name, last_name, email, phone_number, position)
+VALUES
+(1, 'Frank', 'Biller', 'frank@virginiarowing.org', 1234567876, 'Head Coach');
+
+
 INSERT INTO Boats
 VALUES
     ('Peoples Eight', 8),
