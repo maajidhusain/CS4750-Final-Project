@@ -118,7 +118,7 @@ CREATE TABLE DailyWorkout(
 CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
     boat_name VARCHAR(50),
-    seat VARCHAR(50),   
+    seat INT(1),   
     PRIMARY KEY (athlete_id),
     FOREIGN KEY (boat_name) REFERENCES Boats(boat_name)
 );
@@ -207,7 +207,7 @@ VALUES
 INSERT INTO EightMan
 VALUES
     ('Peoples Eight', 'red', 'P', 1, 2, 3, 4, 5, 6, 7, 8, 9),
-    ('White Rocket II', 'blue', 'p', 6, 7, 8, 9, 10, 11, 12, 13, 14),
+    ('White Rocket II', 'blue', 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
     ('Jefferson', NULL, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
     ;
 
@@ -263,6 +263,80 @@ VALUES
 ;
 
 
+INSERT INTO ExtraWork
+VALUES
+    (1, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (2, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (3, 3, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (4, 4, 15, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (5, 5, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (6, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (7, 7, 40, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (8, 8, 3, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (9, 9, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (10, 10, 10, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (11, 11, 30, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (12, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (13, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (14, 3, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (15, 4, 15, '2023-05-14', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (16, 5, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (17, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (18, 7, 40, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (19, 8, 3, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (20, 9, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (21, 10, 10, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (22, 11, 30, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (23, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (24, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (25, 3, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (26, 4, 15, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (27, 5, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (28, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (1, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (2, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (3, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (4, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (5, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (7, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (8, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (9, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (10, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (11, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (12, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (13, 6, 25, '2023-04-01', 'water', '4x10 pushups 4x10 Z2l')
+    ;
+
+INSERT INTO RowsIn
+VALUES
+    (26, 'Blue Swift', 1),
+    (25, 'Orange Swift D', 1),
+    (25, 'Orange Swift D', 1),
+    (19, 'Kadravits', 0),
+    (20, 'Kadravits', 1),
+    (21, 'Kadravits', 2),
+    (22, 'Kadravits', 3),
+    (23, 'Kadravits', 4),
+    (10, 'Myers', 0),
+    (11, 'Myers', 1),
+    (12, 'Myers', 2),
+    (13, 'Myers', 3),
+    (14, 'Myers', 4),
+    (15, 'Panda', 0),
+    (16, 'Panda' 1)
+    (17, 'Panda', 2),
+    (18, 'Panda', 3),
+    (19, 'Panda', 4),
+    (1, "Peoples Eight", 0),
+    (2, "People Eight", 1),
+    (3, "People Eight", 2),
+    (4, "People Eight", 3),
+    (5, "People Eight", 4),
+    (6, "People Eight", 5),
+    (7, "People Eight", 6),
+    (8, "People Eight", 7),
+    (9, "People Eight", 8)
+    ;
 -- automatically delete a user from one lineup if they are put into another and update rows in
 DELIMITER $$
 CREATE TRIGGER lineupTrigger
