@@ -298,7 +298,6 @@ VALUES
     (3, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (4, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (5, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
-    (6, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (7, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (8, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (9, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
