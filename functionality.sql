@@ -242,7 +242,7 @@ WHERE workout_id=$workout_id;
 -- search by 2kscore 
 SELECT first_name + ' ' + last_name AS Name, twoKPR
 FROM Athlete
-WHERE twoKPR >= $twoKPR;
+WHERE twoKPR <= $twoKPR;
 -- search by name
 SELECT first_name + ' ' + last_name AS Name
 FROM Athlete
@@ -276,8 +276,8 @@ WHERE class = $class;
 -- -- automatically delete a user from one lineup if they are put into another and update rows in
 -- DELIMITER $$
 -- CREATE TRIGGER lineupTrigger
--- AFTER UPDATE ON (EightMan OR FourMan OR TwoMan OR Single)
--- FOR EACH ROW IN Athlete
+-- AFTER UPDATE ON RowsIn
+-- FOR EACH ROW
 -- BEGIN
 -- INSERT INTO Attendance
 -- (athlete_id, practice_id)
@@ -288,7 +288,7 @@ WHERE class = $class;
 -- DELIMITER ;
 
 
-
+-- look for what changed in rows in and update the approprotaite boat accrodingly
 
 
 

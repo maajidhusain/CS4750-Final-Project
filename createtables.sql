@@ -118,6 +118,7 @@ CREATE TABLE DailyWorkout(
 CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
     boat_name VARCHAR(50),
+    seat VARCHAR(50),   
     PRIMARY KEY (athlete_id),
     FOREIGN KEY (boat_name) REFERENCES Boats(boat_name)
 );
@@ -179,10 +180,15 @@ VALUES
 INSERT INTO Coach
 (coach_id, first_name, last_name, email, phone_number, position)
 VALUES
-(1, 'Frank', 'Biller', 'frank@virginiarowing.org', 1234567876, 'Head Coach');
-
+(1, 'Frank', 'Biller', 'frank@virginiarowing.org', 1234567876, 'Head Coach'),
+(2, 'Walker', 'Haptman', 'walker@virginiarowing.org', 14567898776, 'Head Novice Coach'),
+(3, 'Frank', 'Vasquez', 'frankV@virginiarowing.org', 14565664534, 'Assistant Coach'),
+(4, 'Ellie', 'Coles', 'ellie@virginiarowing.org', 1223567976, 'Assistant Coach'),
+(5, 'Matt', 'Connor', 'matt@virginiarowing.org', 1234235876, 'Physical Therapist'),
+(6, 'Bailey', 'Hughs', 'bailey@virginiarowing.org', 1234561234, 'Assistant Coach');
 
 INSERT INTO Boats
+(boat_name, num_seats)
 VALUES
     ('Peoples Eight', 8),
     ('White Rocket II', 8),
@@ -195,63 +201,63 @@ VALUES
     ('Green Swift', 1),
     ('Orange Swift D', 2),
     ('Blue Swift D', 2),
-    ('Green Swift D', 2),
+    ('Green Swift D', 2)
 ;
 
 INSERT INTO EightMan
 VALUES
     ('Peoples Eight', 'red', 'P', 1, 2, 3, 4, 5, 6, 7, 8, 9),
     ('White Rocket II', 'blue', 'p', 6, 7, 8, 9, 10, 11, 12, 13, 14),
-    ('Jefferson', NULL, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+    ('Jefferson', NULL, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
     ;
 
 INSERT INTO FourMan
 VALUES
     ('Panda', 'orange', 'S', 15, 16, 17, 18, 19),
     ('Myers', 'orange', 'p', 10, 11, 12, 13, 14),
-    ('Kadravits', 'gray', 'S', 19, 20, 21, 22, 23),
+    ('Kadravits', 'gray', 'S', 19, 20, 21, 22, 23)
 ;
 
 INSERT INTO TwoMan
 VALUES
     ('Orange Swift D', 'skinnys', 'S', 24, 25),
     ('Blue Swift D', NULL, 'S', NULL, NULL),
-    ('Green Swift D', NULL, 'S', NULL, NULL),
+    ('Green Swift D', NULL, 'S', NULL, NULL)
 ;
 
 INSERT INTO Single
 VALUES
     ('Orange Swift', 'skinnys', 'S', 26),
     ('Blue Swift', NULL, 'S', NULL),
-    ('Green Swift', NULL, 'S', NULL),
+    ('Green Swift', NULL, 'S', NULL)
 ;
 
 INSERT INTO DailyWorkout
 VALUES
 (1, "4x20' Z2L with 4' rest"),
-(1, "2x30' Z1L with 5' rest")
-(2, "5x10' Z4L with 2' rest")
-(3, "3x15' Z3L with 3' rest")
-(4, "6x5' Z5L with 1' rest")
-(5, "4x25' Z2L with 4' rest")
-(6, "2x40' Z1L with 6' rest")
-(7, "8x3' Z6L with 1' rest")
-(8, "5x20' Z3L with 3' rest")
-(9, "6x10' Z4L with 2' rest")
-(10, "3x30' Z2L with 5' rest")
+(2, "2x30' Z1L with 5' rest"),
+(3, "5x10' Z4L with 2' rest"),
+(4, "3x15' Z3L with 3' rest"),
+(5, "6x5' Z5L with 1' rest"),
+(6, "4x25' Z2L with 4' rest"),
+(7, "2x40' Z1L with 6' rest"),
+(8, "8x3' Z6L with 1' rest"),
+(9, "5x20' Z3L with 3' rest"),
+(10, "6x10' Z4L with 2' rest"),
+(11, "3x30' Z2L with 5' rest")
 ;
 
 INSERT INTO Practices
 VALUES
 (1, 1, '2022-03-15'),
-(1, 2, '2022-03-16')
-(2, 3, '2022-03-17')
-(3, 4, '2022-03-18')
-(4, 5, '2022-03-19')
-(5, 6, '2022-03-20')
-(6, 7, '2022-03-21')
-(7, 8, '2022-03-22')
-(8, 9, '2022-03-23')
-(9, 10, '2022-03-24')
-(10, 1, '2022-03-25')
+(2, 2, '2022-03-16'),
+(3, 3, '2022-03-17'),
+(4, 4, '2022-03-18'),
+(5, 5, '2022-03-19'),
+(6, 6, '2022-03-20'),
+(7, 7, '2022-03-21'),
+(8, 8, '2022-03-22'),
+(9, 9, '2022-03-23'),
+(10, 10, '2022-03-24'),
+(11, 1, '2022-03-25')
 ;
