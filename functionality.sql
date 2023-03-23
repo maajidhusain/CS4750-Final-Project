@@ -276,8 +276,9 @@ WHERE class = $class;
 
 
 
--- look for what changed in rows in and update the approprotaite boat accrodingly
 
+
+-- create new trigger, when rowsin is updated, join the rowsin table with the boats table and update the respective boat with the seat number and athlete id {Single, TwoMan, FourMan, EightMan}
 
 
 

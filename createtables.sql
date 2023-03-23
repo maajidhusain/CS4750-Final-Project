@@ -263,6 +263,40 @@ VALUES
 ;
 
 
+INSERT INTO ExtraWork
+VALUES
+    (1, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (2, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (3, 3, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (4, 4, 15, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (5, 5, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (6, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (7, 7, 40, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (8, 8, 3, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (9, 9, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (10, 10, 10, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (11, 11, 30, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (12, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (13, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (14, 3, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (15, 4, 15, '2023-05-14', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (16, 5, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (17, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (18, 7, 40, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (19, 8, 3, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (20, 9, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (21, 10, 10, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (22, 11, 30, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (23, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (24, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (25, 3, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (26, 4, 15, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    (27, 5, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (28, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
+    ;
+
+
+
 -- automatically delete a user from one lineup if they are put into another and update rows in
 DELIMITER $$
 CREATE TRIGGER lineupTrigger
