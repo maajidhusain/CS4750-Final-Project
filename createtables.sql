@@ -28,7 +28,7 @@ CREATE TABLE Coach(
 
 CREATE TABLE ExtraWork(
     athlete_id INT(50) NOT NULL,
-    workout_num INT(50),
+    workout_num INT(50) NOT NULL,
     mins INT(3) NOT NULL,
     dte DATE NOT NULL,
     workout_type VARCHAR(50) NOT NULL,
@@ -442,7 +442,8 @@ VALUES
 (39, 'James', 'Turner', 'jamesturner@example.com', 9012345689, '1999-12-12', 2024, 73, 195, 'Senior', 'P', '315'),
 (40, 'Charlotte', 'Phillips', 'charlottep@example.com', 9012345690, '2001-05-29', 2023, 68, 170, 'Sophomore', 'S', '350'),
 (41, 'David', 'Campbell', 'davidc@example.com', 9012345691, '2000-08-19', 2024, 77, 205, 'Junior', 'P', '425'),
-(42, 'Amelia', 'Parker', 'ameliaparker@example.com', 9012345692, '2001-02-23', 2023, 71, 175, 'Sophomore', 'S', '485'),
+(42, 'David', 'Campbell', 'davidc@example.com', 9012345691, '2000-08-19', 2024, 77, 205, 'Junior', 'P', '425'),
+(43, 'Amelia', 'Parker', 'ameliaparker@example.com', 9012345692, '2001-02-23', 2023, 71, 175, 'Sophomore', 'S', '485'),
 (44, 'Olivia', 'Harris', 'oliviaharris@example.com', 9012345694, '2000-01-04', 2023, 66, 160, 'Junior', 'S', '365'),
 (45, 'Daniel', 'Clark', 'danielc@example.com', 9012345695, '2001-07-27', 2024, 72, 180, 'Sophomore', 'P', '420'),
 (46, 'Emily', 'Lewis', 'emilylewis@example.com', 9012345696, '2000-12-15', 2023, 68, 170, 'Junior', 'S', '470'),
@@ -557,8 +558,6 @@ VALUES
     (55, 1, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
     (56, 1, 15, '2023-05-14', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (57, 1, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
-    (58, 1, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
-    (59, 1, 40, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
     (1, 2, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
     (2, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (3, 2, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
@@ -691,27 +690,23 @@ VALUES
 (44, "O'Connor", 7),
 (45, "O'Connor", 8),
 
-(42, "Panda", 0),
-(43, "Panda", 1),
-(44, "Panda", 2),
-(45, "Panda", 3),
-(46, "Panda", 4),
+(46, "Panda", 0),
+(47, "Panda", 1),
+(48, "Panda", 2),
+(49, "Panda", 3),
+(50, "Panda", 4),
 
-(47, "Myers", 0),
-(48, "Myers", 1),
-(49, "Myers", 2),
-(50, "Myers", 3),
-(51, "Myers", 4),
+(51, "Orange Swift D", 1),
+(52, "Orange Swift D", 2),
 
-(52, "Orange Swift D", 1),
-(53, "Orange Swift D", 2),
+(53, "Blue Swift D", 1),
+(54, "Blue Swift D", 2),
 
-(54, "Blue Swift D", 1),
-(55, "Blue Swift D", 2),
+(55, "Blue Swift", 1),
 
-(56, "Blue Swift", 1),
+(56, "Green Swift", 1),
 
-(57, "Green Swift", 1)
+(57, "Orange Swift", 1)
 
 ;
 
