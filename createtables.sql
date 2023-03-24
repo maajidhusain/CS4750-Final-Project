@@ -124,20 +124,22 @@ CREATE TABLE RowsIn(
 
 -- created new table for practices
 CREATE TABLE Practices(
-    practice_id INT(50) NOT NULL AUTO_INCREMENT,
-    workout_id INT(50) NOT NULL,
+    practice_num INT(50) NOT NULL,
     dte DATE NOT NULL,
+    workout_id INT(50) NOT NULL,
     FOREIGN KEY (workout_id) REFERENCES DailyWorkout(workout_id),
-    PRIMARY KEY (practice_id) 
+    PRIMARY KEY (practice_num, dte) 
 );
 
--- renamed "practices" to this, changed workout_id to practice_id and delted date, also added "attended"
+-- table to track attendances
 CREATE TABLE Attendance(
     athlete_id INT(50) NOT NULL,
-    practice_id INT(50) NOT NULL,
+    practice_num INT(50) NOT NULL,
+    dte DATE NOT NULL,
     attended VARCHAR(1) DEFAULT 'Y' NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
-    PRIMARY KEY (athlete_id, practice_id)
+    FOREIGN KEY (practice_num, dte) REFERENCES Practices(practice_num, dte),
+    PRIMARY KEY (athlete_id, practice_num, dte)
 );
 
 -- automatically change a lineup when rows in is updated
@@ -268,12 +270,14 @@ AFTER INSERT ON Practices
 FOR EACH ROW
 BEGIN
     DECLARE athlete_id$ INT;
-    DECLARE practice_id$ INT;
+    DECLARE practice_num$ INT;
+    DECLARE dte$ DATE;
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur CURSOR FOR SELECT athlete_id FROM Athlete;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-    SET practice_id$ = NEW.practice_id;
+    SET practice_num$ = NEW.practice_num;
+    SET dte$ = NEW.dte;
 
     OPEN cur;
 
@@ -283,7 +287,7 @@ BEGIN
             LEAVE myloop;
         END IF;
 
-        INSERT INTO Attendance VALUES (athlete_id$, practice_id$, "Y");
+        INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$ "Y");
     END LOOP;
 
     CLOSE cur;

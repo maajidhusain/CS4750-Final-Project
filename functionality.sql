@@ -192,15 +192,15 @@ VALUES
 
 -- Add RowsIn
 INSERT INTO RowsIn
-(athlete_id, boat_name)
+(athlete_id, boat_name, seat)
 VALUES
-($athlete_id, $boat_name);
+($athlete_id, $boat_name, $seat);
 
 -- Add Practices
 INSERT INTO Practices
-(practice_id, workout_id, dte)
+(practice_num, dte, workout_id)
 VALUES
-($athlete_id, $workout_id, $attended, $dte);
+($practice_num, $dte, $workout_id);
 
 -- Add daily workout
 INSERT INTO DailyWorkout
@@ -257,17 +257,17 @@ WHERE boat_name=$boat_name
 -- coach changes practice's workout
 UPDATE practice
 SET workout_id=$workout_id
-WHERE practice_id=$practice_id;
+WHERE practice_num=$practice_num AND dte=$dte;
 
 
 -- Athletes can update if they are attending a practice or not
 UPDATE Attendance
 SET attended = "N"
-WHERE athlete_id=$athlete_id AND practice_id=$practice_id;
+WHERE athlete_id=$athlete_id AND practice_num=$practice_num AND dte=$dte;
 
 UPDATE Attendance
 SET attended = "Y"
-WHERE athlete_id=$athlete_id AND practice_id=$practice_id;
+WHERE athlete_id=$athlete_id AND practice_num=$practice_num AND dte=$dte;
 
 
 -- The ‘Superuser’ will be able to delete, or remove inactive or archived athletes
