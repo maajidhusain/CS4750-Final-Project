@@ -162,9 +162,9 @@ VALUES
 
 -- Add extra work
 INSERT INTO ExtraWork
-(athlete_id, workout_id, mins, dte, workout_type, descr)
+(athlete_id, workout_num, mins, dte, workout_type, descr)
 VALUES
-($athlete_id, $workout_id, $mins, $dte, $workout_type, $descr);
+($athlete_id, $workout_num, $mins, $dte, $workout_type, $descr);
 
 -- Add Single
 INSERT INTO Single
@@ -275,7 +275,7 @@ DELETE FROM Athlete
 WHERE athlete_id=$athlete_id;
 -- Coach will be able to delete invalid extra workouts
 DELETE FROM ExtraWork
-WHERE workout_id=$workout_id;
+WHERE workout_num=$workout_num AND athlete_id=$athlete_id;
 
 -- Search/Filter Data
 -- search by 2kscore 
