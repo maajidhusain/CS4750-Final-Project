@@ -158,7 +158,7 @@ BEGIN
         SELECT num_seats INTO number_seatsOldBoat FROM Boats WHERE boat_name = OLD.boat_name;
         
         CASE
-            WHEN number_seats = 8 OR number_seatsOldBoat = 8 THEN
+            WHEN number_seats = 8 THEN
                 CASE NEW.seat
                     WHEN '1' THEN UPDATE EightMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
                     WHEN '2' THEN UPDATE EightMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
@@ -170,7 +170,28 @@ BEGIN
                     WHEN '8' THEN UPDATE EightMan SET eight_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
                     WHEN '0' THEN UPDATE EightMan SET coxswain = OLD.athlete_id WHERE boat_name = NEW.boat_name;
                 END CASE;
-                
+
+             WHEN number_seats = 4 THEN
+                CASE NEW.seat
+                    WHEN '1' THEN UPDATE FourMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                    WHEN '2' THEN UPDATE FourMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                    WHEN '3' THEN UPDATE FourMan SET three_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                    WHEN '4' THEN UPDATE FourMan SET four_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                    WHEN '0' THEN UPDATE FourMan SET coxswain = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                END CASE;
+            
+            WHEN number_seats = 2 THEN
+                CASE NEW.seat
+                    WHEN '1' THEN UPDATE TwoMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                    WHEN '2' THEN UPDATE TwoMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                END CASE;
+
+            WHEN number_seats = 1 THEN
+                CASE NEW.seat
+                    WHEN '1' THEN UPDATE Single SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+                END CASE;
+            
+            WHEN number_seatsOldBoat = 8 THEN
                 CASE OLD.seat
                     WHEN '1' THEN UPDATE EightMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
                     WHEN '2' THEN UPDATE EightMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
@@ -183,15 +204,7 @@ BEGIN
                     WHEN '0' THEN UPDATE EightMan SET coxswain = NULL WHERE boat_name = OLD.boat_name;
                 END CASE;
 
-             WHEN number_seats = 4 OR number_seatsOldBoat = 4 THEN
-                CASE NEW.seat
-                    WHEN '1' THEN UPDATE FourMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                    WHEN '2' THEN UPDATE FourMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                    WHEN '3' THEN UPDATE FourMan SET three_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                    WHEN '4' THEN UPDATE FourMan SET four_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                    WHEN '0' THEN UPDATE FourMan SET coxswain = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                END CASE;
-
+             WHEN number_seatsOldBoat = 4 THEN
                 CASE OLD.seat
                     WHEN '1' THEN UPDATE FourMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
                     WHEN '2' THEN UPDATE FourMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
@@ -200,22 +213,13 @@ BEGIN
                     WHEN '0' THEN UPDATE FourMan SET coxswain = NULL WHERE boat_name = OLD.boat_name;
                 END CASE;
             
-            WHEN number_seats = 2 OR number_seatsOldBoat = 2 THEN
-                CASE NEW.seat
-                    WHEN '1' THEN UPDATE TwoMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                    WHEN '2' THEN UPDATE TwoMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                END CASE;
-
+            WHEN number_seatsOldBoat = 2 THEN
                 CASE OLD.seat
                     WHEN '1' THEN UPDATE TwoMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
                     WHEN '2' THEN UPDATE TwoMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
                 END CASE;
 
-            WHEN number_seats = 1 OR number_seatsOldBoat = 1 THEN
-                CASE NEW.seat
-                    WHEN '1' THEN UPDATE Single SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
-                END CASE;
-
+            WHEN number_seatsOldBoat = 1 THEN
                 CASE OLD.seat
                     WHEN '1' THEN UPDATE Single SET one_seat = NULL WHERE boat_name = OLD.boat_name;
                 END CASE;

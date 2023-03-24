@@ -23,7 +23,7 @@ FROM Attendance
 WHERE attended <> 'Y' AND athlete_id = $athlete_id;
 
 -- retrieve the athletes attending tomorrow's practice
-SELECT first_name + ' ' + last_name AS Name
+SELECT CONCAT(first_name, ' ', last_name) AS Name
 FROM Athlete NATURAL JOIN Attendance
 WHERE attended = 'Y' AND dte = (CURDATE() + INTERVAL 1 DAY);
 
@@ -217,44 +217,44 @@ VALUES
 -- Users will be able to update their profile information
 UPDATE Athlete
 SET first_name=$first_name, last_name=$last_name, email=$email, phone_number=$phone_number, date_of_birth=$date_of_birth, grad_year=$grad_year, height=$height, ath_weight=$ath_weight, class=$class, boat_side=$boat_side, twoKPR=$twoKPR
-WHERE athlete_id=$athlete_id
+WHERE athlete_id=$athlete_id;
 
 -- coach updates lineup
 UPDATE RowsIn
 SET boat_name=$boat_name, seat=$seat
-WHERE athlete_id=$athlete_id
+WHERE athlete_id=$athlete_id;
 
 -- coach updates rigging / oars
 UPDATE EightMan
 SET rigging=$rigging
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 UPDATE EightMan
 SET oars=$oars
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 UPDATE FourMan
 SET rigging=$rigging
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 UPDATE FourMan
 SET oars=$oars
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 UPDATE TwoMan
 SET rigging=$rigging
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 UPDATE TwoMan
 SET oars=$oars
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 UPDATE Single
 SET oars=$oars
-WHERE boat_name=$boat_name
+WHERE boat_name=$boat_name;
 
 -- coach changes practice's workout
-UPDATE practice
+UPDATE practices
 SET workout_id=$workout_id
 WHERE practice_num=$practice_num AND dte=$dte;
 
