@@ -190,7 +190,7 @@ VALUES
 INSERT INTO Boats
 (boat_name, num_seats)
 VALUES
-    ('Peoples Eight', 8),
+    ("People's Eight", 8),
     ('White Rocket II', 8),
     ('Jefferson', 8),
     ('Panda', 4),
@@ -206,7 +206,7 @@ VALUES
 
 INSERT INTO EightMan
 VALUES
-    ('Peoples Eight', 'red', 'P', 1, 2, 3, 4, 5, 6, 7, 8, 9),
+    ("People's Eight", 'red', 'P', 1, 2, 3, 4, 5, 6, 7, 8, 9),
     ('White Rocket II', 'blue', 'p', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
     ('Jefferson', NULL, 'P', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
     ;
@@ -309,34 +309,18 @@ VALUES
 
 INSERT INTO RowsIn
 VALUES
-    (26, 'Blue Swift', 1),
-    (25, 'Orange Swift D', 1),
-    (25, 'Orange Swift D', 1),
-    (19, 'Kadravits', 0),
-    (20, 'Kadravits', 1),
-    (21, 'Kadravits', 2),
-    (22, 'Kadravits', 3),
-    (23, 'Kadravits', 4),
-    (10, 'Myers', 0),
-    (11, 'Myers', 1),
-    (12, 'Myers', 2),
-    (13, 'Myers', 3),
-    (14, 'Myers', 4),
-    (15, 'Panda', 0),
-    (16, 'Panda' 1)
-    (17, 'Panda', 2),
-    (18, 'Panda', 3),
-    (19, 'Panda', 4),
-    (1, "Peoples Eight", 0),
-    (2, "People Eight", 1),
-    (3, "People Eight", 2),
-    (4, "People Eight", 3),
-    (5, "People Eight", 4),
-    (6, "People Eight", 5),
-    (7, "People Eight", 6),
-    (8, "People Eight", 7),
-    (9, "People Eight", 8)
-    ;
+(1, "People's Eight", 0),
+(2, "People's Eight", 1),
+(3, "People's Eight", 2),
+(4, "People's Eight", 3),
+(5, "People's Eight", 4),
+(6, "People's Eight", 5),
+(7, "People's Eight", 6),
+(8, "People's Eight", 7),
+(9, "People's Eight", 8)
+
+;
+
 -- automatically delete a user from one lineup if they are put into another and update rows in
 DELIMITER $$
 CREATE TRIGGER lineupTrigger
@@ -346,12 +330,13 @@ BEGIN
 
     DECLARE number_seats INT;
     
-    IF (OLD.boat_name <> NEW.boat_name) THEN
+    IF ( (OLD.boat_name <> NEW.boat_name) OR (OLD.seat <> NEW.seat) ) THEN
         
         SELECT num_seats INTO number_seats FROM Boats WHERE boat_name = NEW.boat_name;
         
         IF (number_seats = 8) THEN
             
+            -- add athlete to new lineup
             IF (NEW.seat = '1') THEN
                 UPDATE EightMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
             ELSEIF (NEW.seat = '2') THEN
@@ -368,12 +353,120 @@ BEGIN
                 UPDATE EightMan SET seven_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
             ELSEIF (NEW.seat = '8') THEN
                 UPDATE EightMan SET eight_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '0') THEN
+                UPDATE EightMan SET coxswain = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+            -- remove athlete from old lineup
+            IF (OLD.seat = '1') THEN
+                UPDATE EightMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '2') THEN
+                UPDATE EightMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '3') THEN
+                UPDATE EightMan SET three_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '4') THEN
+                UPDATE EightMan SET four_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '5') THEN
+                UPDATE EightMan SET five_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '6') THEN
+                UPDATE EightMan SET six_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '7') THEN
+                UPDATE EightMan SET seven_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '8') THEN
+                UPDATE EightMan SET eight_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '0') THEN
+                UPDATE EightMan SET coxswain = NULL WHERE boat_name = OLD.boat_name;
+            END IF;
+        
+        ELSEIF (number_seats = 4) THEN
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE FourMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '2') THEN
+                UPDATE FourMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '3') THEN
+                UPDATE FourMan SET three_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '4') THEN
+                UPDATE FourMan SET four_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '0') THEN
+                UPDATE FourMan SET coxswain = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+            -- remove athlete from old lineup
+            IF (OLD.seat = '1') THEN
+                UPDATE FourMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '2') THEN
+                UPDATE FourMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '3') THEN
+                UPDATE FourMan SET three_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '4') THEN
+                UPDATE FourMan SET four_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '0') THEN
+                UPDATE FourMan SET coxswain = NULL WHERE boat_name = OLD.boat_name;
+            END IF;
+
+        ELSEIF (number_seats = 2) THEN
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE TwoMan SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '2') THEN
+                UPDATE TwoMan SET two_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+            -- remove athlete from old lineup
+            IF (OLD.seat = '1') THEN
+                UPDATE TwoMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+            ELSEIF (OLD.seat = '2') THEN
+                UPDATE TwoMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
+            END IF;
+
+        ELSE
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE Single SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+            -- remove athlete from old lineup
+            IF (OLD.seat = '1') THEN
+                UPDATE Single SET one_seat = NULL WHERE boat_name = OLD.boat_name;
             END IF;
             
         END IF;
-        
+
     END IF;
 
+END
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER practiceAttendanceTrigger
+AFTER INSERT ON Practices
+FOR EACH ROW
+BEGIN
+    DECLARE athlete_id$ INT;
+    DECLARE practice_id$ INT;
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cur CURSOR FOR SELECT athlete_id FROM Athlete;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    SET practice_id$ = NEW.practice_id;
+
+    OPEN cur;
+
+    myloop: LOOP
+        FETCH cur INTO athlete_id$;
+        IF done THEN
+            LEAVE myloop;
+        END IF;
+
+        INSERT INTO Attendance VALUES (athlete_id$, practice_id$, "Y");
+    END LOOP;
+
+    CLOSE cur;
 END
 $$
 DELIMITER ;
