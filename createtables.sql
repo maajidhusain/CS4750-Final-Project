@@ -287,7 +287,7 @@ BEGIN
             LEAVE myloop;
         END IF;
 
-        INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$ "Y");
+        INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$, "Y");
     END LOOP;
 
     CLOSE cur;
