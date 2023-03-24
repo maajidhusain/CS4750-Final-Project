@@ -46,7 +46,6 @@ CREATE TABLE Boats(
 CREATE TABLE Single(
     boat_name VARCHAR(50),
     oars VARCHAR(50),
-    rigging VARCHAR(50),
     one_seat INT(50),
     FOREIGN KEY (boat_name) REFERENCES Boats(boat_name),
     FOREIGN KEY (one_seat) REFERENCES Athlete(athlete_id),
@@ -388,7 +387,7 @@ BEGIN
             INSERT INTO TwoMan VALUES (NEW.boat_name, NULL, NULL, NULL, NULL);
         ELSE
             -- create a new 1
-            INSERT INTO Single VALUES (NEW.boat_name, NULL, NULL, NULL);
+            INSERT INTO Single VALUES (NEW.boat_name, NULL, NULL);
         END IF;
 END
 $$

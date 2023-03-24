@@ -220,7 +220,45 @@ UPDATE Athlete
 SET first_name=$first_name, last_name=$last_name, email=$email, phone_number=$phone_number, date_of_birth=$date_of_birth, grad_year=$grad_year, height=$height, ath_weight=$ath_weight, class=$class, boat_side=$boat_side, twoKPR=$twoKPR
 WHERE athlete_id=$athlete_id
 
--- Coaches will be able to change boat lineups, riggings, oars and workouts
+-- coach updates lineup
+UPDATE RowsIn
+SET boat_name=$boat_name, seat=$seat
+WHERE athlete_id=$athlete_id
+
+-- coach updates rigging / oars
+UPDATE EightMan
+SET rigging=$rigging
+WHERE boat_name=$boat_name
+
+UPDATE EightMan
+SET oars=$oars
+WHERE boat_name=$boat_name
+
+UPDATE FourMan
+SET rigging=$rigging
+WHERE boat_name=$boat_name
+
+UPDATE FourMan
+SET oars=$oars
+WHERE boat_name=$boat_name
+
+UPDATE TwoMan
+SET rigging=$rigging
+WHERE boat_name=$boat_name
+
+UPDATE TwoMan
+SET oars=$oars
+WHERE boat_name=$boat_name
+
+UPDATE Single
+SET oars=$oars
+WHERE boat_name=$boat_name
+
+-- coach changes practice's workout
+UPDATE practice
+SET workout_id=$workout_id
+WHERE practice_id=$practice_id;
+
 
 -- Athletes can update if they are attending a practice or not
 UPDATE Attendance
@@ -238,6 +276,7 @@ WHERE athlete_id=$athlete_id;
 -- Coach will be able to delete invalid extra workouts
 DELETE FROM ExtraWork
 WHERE workout_id=$workout_id;
+
 -- Search/Filter Data
 -- search by 2kscore 
 SELECT first_name + ' ' + last_name AS Name, twoKPR
@@ -255,33 +294,3 @@ WHERE boat_side = $boat_side;
 SELECT first_name + ' ' + last_name AS Name
 FROM Athlete
 WHERE class = $class;
-
--- Each user will be allowed to filter through the athlete directory to see the different attributes assigned to the results from the search
-
--- Advanced SQL
--- -- automatically create new attendance records for everyone once a practice is created
--- DELIMITER $$
--- CREATE TRIGGER practiceAttendanceTrigger
--- AFTER INSERT ON Practices
--- FOR EACH ROW IN Athlete
--- BEGIN
--- INSERT INTO Attendance
--- (athlete_id, practice_id)
--- VALUES
--- (Athlete.athlete_id, Practices.practice_id)
--- END
--- $$
--- DELIMITER ;
-
-
-
-
-
-
--- create new trigger, when rowsin is updated, join the rowsin table with the boats table and update the respective boat with the seat number and athlete id {Single, TwoMan, FourMan, EightMan}
-
-
-
-
-
-
