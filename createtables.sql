@@ -615,7 +615,7 @@ VALUES
     (54, 2, 30, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (55, 2, 10, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
     (56, 2, 15, '2023-05-14', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
-    (57, 2, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
+    (57, 2, 5, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press')
     ;
 
 INSERT INTO Boats
@@ -711,7 +711,7 @@ VALUES
 
 (56, "Blue Swift", 1),
 
-(57, "Green Swift", 1),
+(57, "Green Swift", 1)
 
 ;
 
