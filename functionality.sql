@@ -269,27 +269,24 @@ SET attended = "Y"
 WHERE athlete_id=$athlete_id AND practice_num=$practice_num AND dte=$dte;
 
 
--- The ‘Superuser’ will be able to delete, or remove inactive or archived athletes
-DELETE FROM Athlete
-WHERE athlete_id=$athlete_id;
 -- Coach will be able to delete invalid extra workouts
 DELETE FROM ExtraWork
 WHERE workout_num=$workout_num AND athlete_id=$athlete_id;
 
 -- Search/Filter Data
 -- search by 2kscore 
-SELECT first_name + ' ' + last_name AS Name, twoKPR
+SELECT CONCAT(first_name, ' ', last_name) AS Name, twoKPR
 FROM Athlete
 WHERE twoKPR <= $twoKPR;
 -- search by name
-SELECT first_name + ' ' + last_name AS Name
+SELECT CONCAT(first_name, ' ', last_name) AS Name
 FROM Athlete
-WHERE first_name_name <> NULL AND last_name <> NULL;
+WHERE first_name <> NULL AND last_name <> NULL;
 -- search by boat side
-SELECT first_name + ' ' + last_name AS Name
+SELECT CONCAT(first_name, ' ', last_name) AS Name
 FROM Athlete
 WHERE boat_side = $boat_side;
 -- search by class
-SELECT first_name + ' ' + last_name AS Name
+SELECT CONCAT(first_name, ' ', last_name) AS Name
 FROM Athlete
 WHERE class = $class;

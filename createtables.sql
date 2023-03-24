@@ -256,7 +256,9 @@ BEGIN
             LEAVE myloop;
         END IF;
 
-        INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$, "Y");
+        IF NEW.practice_num = 1 THEN
+            INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$, "Y");
+        END IF;
     END LOOP;
 
     CLOSE cur;
