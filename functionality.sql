@@ -220,7 +220,7 @@ UPDATE Athlete
 SET first_name=$first_name, last_name=$last_name, email=$email, phone_number=$phone_number, date_of_birth=$date_of_birth, grad_year=$grad_year, height=$height, ath_weight=$ath_weight, class=$class, boat_side=$boat_side, twoKPR=$twoKPR
 WHERE athlete_id=$athlete_id
 
--- Coaches will be able to change boat lineups, riggings, and workouts
+-- Coaches will be able to change boat lineups, riggings, oars and workouts
 
 -- Athletes can update if they are attending a practice or not
 UPDATE Attendance
