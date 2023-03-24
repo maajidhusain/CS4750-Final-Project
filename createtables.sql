@@ -470,3 +470,77 @@ BEGIN
 END
 $$
 DELIMITER ;
+
+-- automatically delete a user from one lineup if they are put into another and update rows in
+DELIMITER $$
+CREATE TRIGGER lineupTriggerINSERT
+AFTER INSERT ON RowsIn
+FOR EACH ROW
+BEGIN
+
+    DECLARE number_seats INT;
+        
+        SELECT num_seats INTO number_seats FROM Boats WHERE boat_name = NEW.boat_name;
+        
+        IF (number_seats = 8) THEN
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE EightMan SET one_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '2') THEN
+                UPDATE EightMan SET two_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '3') THEN
+                UPDATE EightMan SET three_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '4') THEN
+                UPDATE EightMan SET four_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '5') THEN
+                UPDATE EightMan SET five_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '6') THEN
+                UPDATE EightMan SET six_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '7') THEN
+                UPDATE EightMan SET seven_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '8') THEN
+                UPDATE EightMan SET eight_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '0') THEN
+                UPDATE EightMan SET coxswain = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+          
+        
+        ELSEIF (number_seats = 4) THEN
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE FourMan SET one_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '2') THEN
+                UPDATE FourMan SET two_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '3') THEN
+                UPDATE FourMan SET three_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '4') THEN
+                UPDATE FourMan SET four_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '0') THEN
+                UPDATE FourMan SET coxswain = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+        ELSEIF (number_seats = 2) THEN
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE TwoMan SET one_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            ELSEIF (NEW.seat = '2') THEN
+                UPDATE TwoMan SET two_seat = NEW.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+        ELSE
+            
+            -- add athlete to new lineup
+            IF (NEW.seat = '1') THEN
+                UPDATE Single SET one_seat = NEw.athlete_id WHERE boat_name = NEW.boat_name;
+            END IF;
+
+        END IF;
+
+
+END
+$$
+DELIMITER ;
