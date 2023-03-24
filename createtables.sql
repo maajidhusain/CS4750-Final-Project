@@ -141,37 +141,6 @@ CREATE TABLE Attendance(
     PRIMARY KEY (athlete_id, practice_id)
 );
 
-
-INSERT INTO Attendance
-(athlete_id, practice_id, attended)
-VALUES
-(1, 1, 'N'),
-(2, 1, 'Y'),
-(3, 1, 'Y'),
-(4, 1, 'Y'),
-(5, 1, 'N'),
-(6, 1, 'Y'),
-(7, 1, 'Y'),
-(8, 1, 'Y'),
-(9, 1, 'Y'),
-(10, 1, 'Y'),
-(1, 2, 'Y'),
-(2, 2, 'Y'),
-(3, 2, 'Y'),
-(4, 2, 'Y'),
-(5, 2, 'Y'),
-(6, 2, 'Y'),
-(7, 2, 'Y'),
-(8, 2, 'Y'),
-(9, 2, 'N'),
-(10, 2, 'Y')
-
-;
-
-
-
-
-
 INSERT INTO Athlete
 (athlete_id, first_name, last_name, email, phone_number, date_of_birth, grad_year, height, ath_weight, class, boat_side, twoKPR)
 VALUES 
@@ -275,22 +244,6 @@ VALUES
 (11, "3x30' Z2L with 5' rest")
 ;
 
-INSERT INTO Practices
-VALUES
-(1, 1, '2022-03-15'),
-(2, 2, '2022-03-16'),
-(3, 3, '2022-03-17'),
-(4, 4, '2022-03-18'),
-(5, 5, '2022-03-19'),
-(6, 6, '2022-03-20'),
-(7, 7, '2022-03-21'),
-(8, 8, '2022-03-22'),
-(9, 9, '2022-03-23'),
-(10, 10, '2022-03-24'),
-(11, 1, '2022-03-25')
-;
-
-
 INSERT INTO ExtraWork
 VALUES
     (1, 1, 20, '2022-03-15', 'land', '4x10 pushups, 3x8 sit ups, 3x12 bench press'),
@@ -334,21 +287,6 @@ VALUES
     (12, 6, 25, '2023-04-01', 'water', '4x10 pushups, 3x12 squats, 20 min rows'),
     (13, 6, 25, '2023-04-01', 'water', '4x10 pushups 4x10 Z2l')
     ;
-
-INSERT INTO RowsIn
-VALUES
-(1, "People's Eight", 0),
-(2, "People's Eight", 1),
-(3, "People's Eight", 2),
-(4, "People's Eight", 3),
-(5, "People's Eight", 4),
-(6, "People's Eight", 5),
-(7, "People's Eight", 6),
-(8, "People's Eight", 7),
-(9, "People's Eight", 8),
-
-
-;
 
 -- automatically delete a user from one lineup if they are put into another and update rows in
 DELIMITER $$
@@ -573,3 +511,32 @@ BEGIN
 END
 $$
 DELIMITER ;
+
+
+INSERT INTO RowsIn
+VALUES
+(1, "People's Eight", 0),
+(2, "People's Eight", 1),
+(3, "People's Eight", 2),
+(4, "People's Eight", 3),
+(5, "People's Eight", 4),
+(6, "People's Eight", 5),
+(7, "People's Eight", 6),
+(8, "People's Eight", 7),
+(9, "People's Eight", 8),
+;
+
+INSERT INTO Practices
+VALUES
+(1, 1, '2022-03-15'),
+(2, 2, '2022-03-16'),
+(3, 3, '2022-03-17'),
+(4, 4, '2022-03-18'),
+(5, 5, '2022-03-19'),
+(6, 6, '2022-03-20'),
+(7, 7, '2022-03-21'),
+(8, 8, '2022-03-22'),
+(9, 9, '2022-03-23'),
+(10, 10, '2022-03-24'),
+(11, 1, '2022-03-25')
+;
