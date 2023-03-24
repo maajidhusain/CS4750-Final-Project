@@ -190,7 +190,8 @@ BEGIN
                 CASE NEW.seat
                     WHEN '1' THEN UPDATE Single SET one_seat = OLD.athlete_id WHERE boat_name = NEW.boat_name;
                 END CASE;
-            
+        END CASE;
+        CASE
             WHEN number_seatsOldBoat = 8 THEN
                 CASE OLD.seat
                     WHEN '1' THEN UPDATE EightMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
