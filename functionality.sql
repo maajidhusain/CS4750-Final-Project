@@ -2,23 +2,23 @@
 -- Retrieve the daily workout, extra workouts, lineups, and user information
 
 -- Retrieve today's daily workout
-SELECT descr
+SELECT practice_num, dte, descr 
 FROM DailyWorkout NATURAL JOIN Practices 
 WHERE dte IN (CURDATE());
 
 -- Retrieve tomorrow's daily workout
-SELECT descr
+SELECT practice_num, dte, descr 
 FROM DailyWorkout NATURAL JOIN Practices 
 WHERE dte = (CURDATE() + INTERVAL 1 DAY);
 
 -- Retrieve a daily workout from any date
-SELECT descr 
+SELECT practice_num, dte, descr 
 FROM DailyWorkout NATURAL JOIN Practices 
 WHERE DAY(dte) = $num AND MONTH(dte) = 
 $month AND YEAR(dte) = $year;
 
 -- Retrieve how many practices an athlete missed
-SELECT count(attended)
+SELECT count(attended) AS missed
 FROM Attendance
 WHERE attended <> 'Y' AND athlete_id = $athlete_id;
 
@@ -33,29 +33,29 @@ FROM ExtraWork
 WHERE athlete_id = $athlete_id;
 
 -- retrieve athletes total extra workouts minutes
-SELECT SUM(mins)
-FROM ExtraWork
+SELECT CONCAT(first_name, ' ', last_name) AS Name, SUM(mins) AS Total_Minutes
+FROM ExtraWork NATURAL JOIN Athlete
 GROUP BY athlete_id;
 
 -- retrieve some athlete user information (Ex: g8)
-SELECT first_name + ' ' + last_name AS Name, g8
+SELECT CONCAT(first_name, ' ', last_name) AS Name, g8
 FROM Athlete
 WHERE athlete_id = $athlete_id;
 
 -- retrieve all of the 8's lineups
-SELECT boat_name, oars, coxswain, one_seat, two_seat, three_seat, four_seat, five_seat, six_seat, seven_seat, eight_seat
+SELECT *
 FROM EightMan;
 
 -- retrieve all of the 4's lineups
-SELECT boat_name, oars, coxswain, one_seat, two_seat, three_seat, four_seat
+SELECT *
 FROM FourMan;
 
 -- retrieve all of the 2's lineups
-SELECT boat_name, oars, coxswain, one_seat, two_seat
+SELECT *
 FROM TwoMan;
 
 -- retrieve all of the 1's lineups
-SELECT boat_name, oars, coxswain, one_seat
+SELECT *
 FROM Single;
 
 -- retieve a given user's lineups (use "Rows in")
@@ -64,89 +64,88 @@ FROM RowsIn
 WHERE athlete_id = $athlete_id;
 
 -- retrieve the name of an eights lineup coxswain
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.coxswain = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.coxswain = Athlete.athlete_id;
 
 -- retrieve the name of an eights lineup 1 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.one_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.one_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 2 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.two_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.two_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 3 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.three_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.three_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 4 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.four_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.four_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 5 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.five_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.five_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 6 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.six_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.six_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 7 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.seven_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.seven_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an eights lineup 8 seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN EightMan ON EightMan.eight_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN EightMan ON EightMan.eight_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an four lineup coxswain seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN FourMan ON FourMan.coxswain_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN FourMan ON FourMan.coxswain = Athlete.athlete_id;
+
 
 -- retrieve the name of an four lineup one seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN FourMan ON FourMan.one_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN FourMan ON FourMan.one_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an four lineup two seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN FourMan ON FourMan.two_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN FourMan ON FourMan.two_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an four lineup three seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN FourMan ON FourMan.three_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN FourMan ON FourMan.three_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an four lineup four seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN FourMan ON FourMan.four_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN FourMan ON FourMan.four_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an TwoMan lineup one seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN TwoMan ON TwoMan.one_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN TwoMan ON TwoMan.one_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an TwoMan lineup two seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN TwoMan ON TwoMan.two_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN TwoMan ON TwoMan.two_seat = Athlete.athlete_id;
+
 
 -- retrieve the name of an Single lineup one seat
-SELECT first_name + ' ' + last_name AS Name
-FROM Athlete JOIN Single ON Single.one_seat = Athlete.athlete_id
-WHERE first_name_name <> NULL AND last_name <> NULL;
+SELECT boat_name AS Boat, CONCAT(first_name, ' ', last_name) AS Name
+FROM Athlete JOIN Single ON Single.one_seat = Athlete.athlete_id;
+
 
 -- Add athlete
 INSERT INTO Athlete 
@@ -168,9 +167,9 @@ VALUES
 
 -- Add Single
 INSERT INTO Single
-(boat_name, oars, rigging, one_seat)
+(boat_name, oars, one_seat)
 VALUES
-($boat_name, $oars, $rigging, $one_seat);
+($boat_name, $oars, $one_seat);
 
 -- Add two man
 INSERT INTO TwoMan
@@ -180,15 +179,15 @@ VALUES
 
 -- Add FourMan
 INSERT INTO FourMan
-(boat_name, oars, rigging, one_seat, two_seat, three_seat, four_seat)
+(boat_name, oars, rigging, coxswain, one_seat, two_seat, three_seat, four_seat)
 VALUES
-($boat_name, $oars, $rigging, $one_seat, $two_seat, $three_seat, $four_seat);
+($boat_name, $oars, $rigging, $coxswain, $one_seat, $two_seat, $three_seat, $four_seat);
 
 -- Add EightMan
 INSERT INTO EightMan
-(boat_name, oars, rigging, one_seat, two_seat, three_seat, four_seat, five_seat, six_seat, seven_seat, eight_seat)
+(boat_name, oars, rigging, coxswain, one_seat, two_seat, three_seat, four_seat, five_seat, six_seat, seven_seat, eight_seat)
 VALUES
-($boat_name, $oars, $rigging, $one_seat, $two_seat, $three_seat, $four_seat, $five_seat, $six_seat, $seven_seat, $eight_seat);
+($boat_name, $oars, $rigging, $coxswain, $one_seat, $two_seat, $three_seat, $four_seat, $five_seat, $six_seat, $seven_seat, $eight_seat);
 
 -- Add RowsIn
 INSERT INTO RowsIn
