@@ -142,6 +142,34 @@ CREATE TABLE Attendance(
 );
 
 
+INSERT INTO Attendance
+(athlete_id, practice_id, attended)
+VALUES
+(1, 1, 'N'),
+(2, 1, 'Y'),
+(3, 1, 'Y'),
+(4, 1, 'Y'),
+(5, 1, 'N'),
+(6, 1, 'Y'),
+(7, 1, 'Y'),
+(8, 1, 'Y'),
+(9, 1, 'Y'),
+(10, 1, 'Y'),
+(1, 2, 'Y'),
+(2, 2, 'Y'),
+(3, 2, 'Y'),
+(4, 2, 'Y'),
+(5, 2, 'Y'),
+(6, 2, 'Y'),
+(7, 2, 'Y'),
+(8, 2, 'Y'),
+(9, 2, 'N'),
+(10, 2, 'Y')
+
+;
+
+
+
 
 
 INSERT INTO Athlete
@@ -317,7 +345,8 @@ VALUES
 (6, "People's Eight", 5),
 (7, "People's Eight", 6),
 (8, "People's Eight", 7),
-(9, "People's Eight", 8)
+(9, "People's Eight", 8),
+
 
 ;
 
