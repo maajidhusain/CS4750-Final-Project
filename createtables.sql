@@ -142,6 +142,14 @@ CREATE TABLE Attendance(
     PRIMARY KEY (athlete_id, practice_num, dte)
 );
 
+-- store hashed passwords
+CREATE TABLE Passwords(
+    athlete_id INT(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
+    PRIMARY KEY (athlete_id)
+);
+
 -- automatically change a lineup when rows in is updated
 DELIMITER $$
 CREATE TRIGGER lineupTriggerUPDATE
