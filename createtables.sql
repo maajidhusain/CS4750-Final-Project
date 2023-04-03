@@ -145,7 +145,7 @@ CREATE TABLE Attendance(
 -- store hashed passwords
 CREATE TABLE Passwords(
     athlete_id INT(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
+    psswrd VARCHAR(255) NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
     PRIMARY KEY (athlete_id)
 );
