@@ -117,7 +117,8 @@ CREATE TABLE DailyWorkout(
 CREATE TABLE RowsIn(
     athlete_id VARCHAR(50) NOT NULL,
     boat_name VARCHAR(50),
-    seat INT(1),   
+    seat INT(1),
+    UNIQUE INDEX(boat_name, seat),   
     PRIMARY KEY (athlete_id),
     FOREIGN KEY (boat_name) REFERENCES Boats(boat_name)
 );
@@ -241,40 +242,40 @@ $$
 DELIMITER ;
 
 -- create new attendance data for everyone once a practice is created
-DELIMITER $$
-CREATE TRIGGER practiceAttendanceTrigger
-AFTER INSERT ON Practices
-FOR EACH ROW
-BEGIN
-    DECLARE athlete_id$ INT;
-    DECLARE practice_num$ INT;
-    DECLARE dte$ DATE;
-    DECLARE done INT DEFAULT FALSE;
-    DECLARE cur CURSOR FOR SELECT athlete_id FROM Athlete;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+-- DELIMITER $$
+-- CREATE TRIGGER practiceAttendanceTrigger
+-- AFTER INSERT ON Practices
+-- FOR EACH ROW
+-- BEGIN
+--     DECLARE athlete_id$ INT;
+--     DECLARE practice_num$ INT;
+--     DECLARE dte$ DATE;
+--     DECLARE done INT DEFAULT FALSE;
+--     DECLARE cur CURSOR FOR SELECT athlete_id FROM Athlete;
+--     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-    SET practice_num$ = NEW.practice_num;
-    SET dte$ = NEW.dte;
+--     SET practice_num$ = NEW.practice_num;
+--     SET dte$ = NEW.dte;
 
-    OPEN cur;
+--     OPEN cur;
 
-    myloop: LOOP
-        FETCH cur INTO athlete_id$;
-        IF done THEN
-            LEAVE myloop;
-        END IF;
+--     myloop: LOOP
+--         FETCH cur INTO athlete_id$;
+--         IF done THEN
+--             LEAVE myloop;
+--         END IF;
 
-        IF NEW.practice_num = 1 THEN
-            INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$, "Y");
-        END IF;
-    END LOOP;
+--         IF NEW.practice_num = 1 THEN
+--             INSERT INTO Attendance VALUES (athlete_id$, practice_num$, dte$, "Y");
+--         END IF;
+--     END LOOP;
 
-    CLOSE cur;
-END
-$$
-DELIMITER ;
+--     CLOSE cur;
+-- END
+-- $$
+-- DELIMITER ;
 
--- automatically change a lineup when rows in is updated
+-- automatically change a lineup when rows in is inserted
 DELIMITER $$
 CREATE TRIGGER lineupTriggerINSERT
 AFTER INSERT ON RowsIn
@@ -325,6 +326,57 @@ END
 $$
 DELIMITER ;
 
+-- automatically change a lineup when rows in is deleted
+DELIMITER $$
+CREATE TRIGGER lineupTriggerDELETE
+AFTER DELETE ON RowsIn
+FOR EACH ROW
+BEGIN
+
+    DECLARE number_seatsOldBoat INT;
+        
+    SELECT num_seats INTO number_seatsOldBoat FROM Boats WHERE boat_name = OLD.boat_name;
+        
+    CASE
+        WHEN number_seatsOldBoat = 8 THEN
+            CASE OLD.seat
+                WHEN '1' THEN UPDATE EightMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '2' THEN UPDATE EightMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '3' THEN UPDATE EightMan SET three_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '4' THEN UPDATE EightMan SET four_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '5' THEN UPDATE EightMan SET five_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '6' THEN UPDATE EightMan SET six_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '7' THEN UPDATE EightMan SET seven_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '8' THEN UPDATE EightMan SET eight_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '0' THEN UPDATE EightMan SET coxswain = NULL WHERE boat_name = OLD.boat_name;
+            END CASE;
+
+        WHEN number_seatsOldBoat = 4 THEN
+            CASE OLD.seat
+                WHEN '1' THEN UPDATE FourMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '2' THEN UPDATE FourMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '3' THEN UPDATE FourMan SET three_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '4' THEN UPDATE FourMan SET four_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '0' THEN UPDATE FourMan SET coxswain = NULL WHERE boat_name = OLD.boat_name;
+            END CASE;
+            
+        WHEN number_seatsOldBoat = 2 THEN
+            CASE OLD.seat
+                 WHEN '1' THEN UPDATE TwoMan SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+                WHEN '2' THEN UPDATE TwoMan SET two_seat = NULL WHERE boat_name = OLD.boat_name;
+            END CASE;
+
+        WHEN number_seatsOldBoat = 1 THEN
+            CASE OLD.seat
+                WHEN '1' THEN UPDATE Single SET one_seat = NULL WHERE boat_name = OLD.boat_name;
+            END CASE;
+
+    END CASE;
+
+END
+$$
+DELIMITER ;
+
 -- automatically add a new boat when the boats table is updated
 DELIMITER $$
 CREATE TRIGGER boatTriggerINSERT
@@ -352,6 +404,8 @@ BEGIN
 END
 $$
 DELIMITER ;
+
+
 
 
 INSERT INTO Athlete
