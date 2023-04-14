@@ -34,7 +34,7 @@ CREATE TABLE ExtraWork(
     workout_type VARCHAR(50) NOT NULL,
     descr VARCHAR(500) NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
-    PRIMARY KEY (athlete_id, workout_num)
+    PRIMARY KEY (athlete_id, workout_num, dte)
 );
 
 CREATE TABLE Boats(
