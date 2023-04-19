@@ -143,12 +143,20 @@ CREATE TABLE Attendance(
     PRIMARY KEY (athlete_id, practice_num, dte)
 );
 
--- store hashed passwords
+-- store hashed passwords for athletes
 CREATE TABLE Passwords(
     athlete_id INT(50) NOT NULL,
     psswrd VARCHAR(255) NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
     PRIMARY KEY (athlete_id)
+);
+
+-- store hashed passwords for coaches
+CREATE TABLE CoachPasswords(
+    coach_id INT(50) NOT NULL,
+    psswrd VARCHAR(255) NOT NULL,
+    FOREIGN KEY (coach_id) REFERENCES Coach(coach_id),
+    PRIMARY KEY (coach_id)
 );
 
 -- automatically change a lineup when rows in is updated
