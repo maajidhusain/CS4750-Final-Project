@@ -9,7 +9,7 @@ CREATE TABLE Athlete(
     height INT(3) NOT NULL,
     ath_weight INT(3) NOT NULL,
     class VARCHAR(50) NOT NULL,
-    boat_side VARCHAR(1) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p" boat_side="S/P" OR boat_side="s/p"),
+    boat_side VARCHAR(3) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p" OR boat_side="S/P" OR boat_side="s/p"),
     twoKPR INT(100) CHECK (twoKPR > 300),
     g8 INT(50) AS (twoKPR / ath_weight),
     age INT(50) AS (DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y')+0),
