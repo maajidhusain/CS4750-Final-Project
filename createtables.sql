@@ -9,7 +9,7 @@ CREATE TABLE Athlete(
     height INT(3) NOT NULL,
     ath_weight INT(3) NOT NULL,
     class VARCHAR(50) NOT NULL,
-    boat_side VARCHAR(1) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p"),
+    boat_side VARCHAR(1) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p" boat_side="S/P" OR boat_side="s/p"),
     twoKPR INT(100) CHECK (twoKPR > 300),
     g8 INT(50) AS (twoKPR / ath_weight),
     age INT(50) AS (DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y')+0),
@@ -55,7 +55,7 @@ CREATE TABLE Single(
 CREATE TABLE TwoMan(
     boat_name VARCHAR(50) NOT NULL,
     oars VARCHAR(50),
-    rigging VARCHAR(50) CHECK (rigging ="S" OR rigging ="P" OR rigging="s" OR rigging ="p"),
+    rigging VARCHAR(50),
     one_seat INT(50),
     two_seat INT(50),
     PRIMARY KEY (boat_name),
@@ -67,7 +67,7 @@ CREATE TABLE TwoMan(
 CREATE TABLE FourMan(
     boat_name VARCHAR(50) NOT NULL,
     oars VARCHAR(50),
-    rigging VARCHAR(50) CHECK (rigging ="S" OR rigging ="P" OR rigging="s" OR rigging ="p"),
+    rigging VARCHAR(50),
     coxswain INT(50),
     one_seat INT(50),
     two_seat INT(50),
@@ -85,7 +85,7 @@ CREATE TABLE FourMan(
 CREATE TABLE EightMan(
     boat_name VARCHAR(50),
     oars VARCHAR(50),
-    rigging VARCHAR(50) CHECK (rigging ="S" OR rigging ="P" OR rigging="s" OR rigging ="p"),
+    rigging VARCHAR(50),
     coxswain INT(50),
     one_seat INT(50),
     two_seat INT(50),
