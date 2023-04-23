@@ -9,10 +9,10 @@ CREATE TABLE Athlete(
     height INT(3) NOT NULL,
     ath_weight INT(3) NOT NULL,
     class VARCHAR(50) NOT NULL,
-    boat_side VARCHAR(3) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p" OR boat_side="S/P" OR boat_side="s/p"),
     twoKPR INT(100) CHECK (twoKPR > 300),
     g8 INT(50) AS (twoKPR / ath_weight),
     age INT(50) AS (DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(),DATE_OF_BIRTH)), '%Y')+0),
+    boat_side VARCHAR(3) NOT NULL CHECK (boat_side="S" OR boat_side="P" OR boat_side="s" OR boat_side="p" OR boat_side="S/P" OR boat_side="s/p"),
     PRIMARY KEY (athlete_id)
 );
 
@@ -137,7 +137,7 @@ CREATE TABLE Attendance(
     athlete_id INT(50) NOT NULL,
     practice_num INT(50) NOT NULL,
     dte DATE NOT NULL,
-    attended VARCHAR(1) DEFAULT 'Y' NOT NULL,
+    attended VARCHAR(1) DEFAULT 'N' NOT NULL,
     FOREIGN KEY (athlete_id) REFERENCES Athlete(athlete_id),
     FOREIGN KEY (practice_num, dte) REFERENCES Practices(practice_num, dte),
     PRIMARY KEY (athlete_id, practice_num, dte)
@@ -413,7 +413,8 @@ END
 $$
 DELIMITER ;
 
-
+GRANT INSERT, UPDATE, DELETE ON mr3ea.* TO 'vracoach'@'%';
+GRANT ALL ON mr3ea.* TO 'vradeveloper'@'%';
 
 
 INSERT INTO Athlete
